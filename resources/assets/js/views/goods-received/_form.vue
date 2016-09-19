@@ -6,7 +6,7 @@
         </div>
 
         <div class="field">
-            <label>Data otrzymania</label>
+            <label>Data otrzymania (rrrr-mm-ddd)</label>
             <input type="date" placeholder="Data otrzymania" v-model="form.received_at">
         </div>
 
