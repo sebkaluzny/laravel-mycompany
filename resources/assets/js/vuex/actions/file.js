@@ -5,7 +5,7 @@ Vue.use(VueResource)
 
 export const FileCreate = ({ dispatch, state }, data) => {
     const promise = new Promise((resolve, reject) => {
-        Vue.http.post("/api/file", data).then((response) => {
+        Vue.http.post("api/file", data).then((response) => {
             resolve(response.data.file)
         }, (response) => {
             reject(response.data)
@@ -17,7 +17,7 @@ export const FileCreate = ({ dispatch, state }, data) => {
 export const FileSearch = ({ dispatch, state }, data) => {
     const promise = new Promise((resolve, reject) => {
         dispatch('SET_FILES_SEARCH_BUSY', true);
-        Vue.http.post("/api/file/search", data).then((response) => {
+        Vue.http.post("api/file/search", data).then((response) => {
             dispatch('SET_FILES_SEARCH_FILES', response.data.files);
             resolve(response.data.files)
             dispatch('SET_FILES_SEARCH_BUSY', false);

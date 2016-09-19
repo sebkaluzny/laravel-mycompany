@@ -5,7 +5,7 @@ Vue.use(VueResource)
 
 export const ElementCreate = ({ dispatch, state }, data) => {
     const promise = new Promise((resolve, reject) => {
-        Vue.http.post("/api/element", data).then((response) => {
+        Vue.http.post("api/element", data).then((response) => {
             resolve(response.data.element)
         }, (response) => {
             reject(response.data)
@@ -16,7 +16,7 @@ export const ElementCreate = ({ dispatch, state }, data) => {
 
 export const ElementUpdate = ({ dispatch, state }, id, data) => {
     const promise = new Promise((resolve, reject) => {
-        Vue.http['put']("/api/element/" + id, data).then((response) => {
+        Vue.http['put']("api/element/" + id, data).then((response) => {
             resolve(response.data.element)
         }, (response) => {
             reject(response.data)
@@ -27,7 +27,7 @@ export const ElementUpdate = ({ dispatch, state }, id, data) => {
 
 export const ElementGet = ({ dispatch, state }, id) => {
     const promise = new Promise((resolve, reject) => {
-        Vue.http.get("/api/element/" + id, null).then((response) => {
+        Vue.http.get("api/element/" + id, null).then((response) => {
             // dispatch('SET_GOODS_RECEIVED_INDEX', response.data)
             resolve(response.data.element)
         }, (response) => {
@@ -39,7 +39,7 @@ export const ElementGet = ({ dispatch, state }, id) => {
 
 export const ElementSearch = ({ dispatch, state }, data) => {
     const promise = new Promise((resolve, reject) => {
-        Vue.http.post("/api/element/search", data).then((response) => {
+        Vue.http.post("api/element/search", data).then((response) => {
             resolve(response.data.elements)
         }, (response) => {
             reject(response.data)
@@ -50,7 +50,7 @@ export const ElementSearch = ({ dispatch, state }, data) => {
 
 export const ElementAttachFile = ({ dispatch, state }, data) => {
     const promise = new Promise((resolve, reject) => {
-        Vue.http.post("/api/element/attach-file", data).then((response) => {
+        Vue.http.post("api/element/attach-file", data).then((response) => {
             resolve(response.data)
         }, (response) => {
             reject(response.data)
@@ -61,7 +61,7 @@ export const ElementAttachFile = ({ dispatch, state }, data) => {
 
 export const ElementDetachFile = ({ dispatch, state }, data) => {
     const promise = new Promise((resolve, reject) => {
-        Vue.http.post("/api/element/detach-file", data).then((response) => {
+        Vue.http.post("api/element/detach-file", data).then((response) => {
             resolve(response.data)
         }, (response) => {
             reject(response.data)
@@ -73,7 +73,7 @@ export const ElementDetachFile = ({ dispatch, state }, data) => {
 export const ElementIndex = ({ dispatch, state }, data = {}) => {
     const promise = new Promise((resolve, reject) => {
         dispatch('SET_INDEX_ELEMENTS_BUSY', true);
-        Vue.http.get("/api/element?" + $.param(data), null).then((response) => {
+        Vue.http.get("api/element?" + $.param(data), null).then((response) => {
             dispatch('SET_INDEX_ELEMENTS', response.data.elements)
             resolve(response.data.elements)
             dispatch('SET_INDEX_ELEMENTS_BUSY', false);

@@ -18,8 +18,6 @@ require('bootstrap-sass');
 
 window.Vue = require('vue');
 require('vue-resource');
-// Vue.http.options.root = '';
-
 
 window.VueRouter = require('vue-router');
 Vue.use(VueRouter);
@@ -35,6 +33,9 @@ Vue.http.interceptors.push((request, next) => {
 
     next();
 });
+
+// Vue.http.options.root = '/mycompany';
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
