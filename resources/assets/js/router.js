@@ -21,6 +21,10 @@ var router = new VueRouter({
 // Vue.extend(), or just a component options object.
 // We'll talk about nested routes later.
 router.map({
+    '/': {
+        component: ElementIndex
+    },
+
     '/goods-received': {
         component: GoodsReceived
     },

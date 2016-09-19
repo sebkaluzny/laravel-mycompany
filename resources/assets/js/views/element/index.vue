@@ -1,4 +1,7 @@
 <template>
+    <h3 class="ui block header">
+        Lista elementów
+    </h3>
     <div class="ui internally celled grid">
         <div class="row">
             <div class="three wide column">
