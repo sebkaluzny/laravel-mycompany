@@ -39,65 +39,9 @@
             </table>
 
             <h3 class="ui block header">
-                Załączniki
-            </h3>
-
-            <div class="ui teal floating labeled icon dropdown button">
-                <i class="file pdf outline icon"></i>
-                <span class="text">513.43.31</span>
-                <div class="menu">
-                    <div class="header">
-                        <i class="tags icon"></i>
-                        Filter by tag
-                    </div>
-                    <div class="divider"></div>
-                    <div class="item">
-                        <i class="attention icon"></i>
-                        Important
-                    </div>
-                    <div class="item">
-                        <i class="comment icon"></i>
-                        Announcement
-                    </div>
-                    <div class="item">
-                        <i class="conversation icon"></i>
-                        Discussion
-                    </div>
-                </div>
-            </div>
-
-            <div class="ui teal floating labeled icon dropdown button">
-                <i class="file image outline icon"></i>
-                <span class="text">58185024-9241-418390</span>
-                <div class="menu">
-                    <div class="header">
-                        <i class="tags icon"></i>
-                        Filter by tag
-                    </div>
-                    <div class="divider"></div>
-                    <div class="item">
-                        <i class="attention icon"></i>
-                        Important
-                    </div>
-                    <div class="item">
-                        <i class="comment icon"></i>
-                        Announcement
-                    </div>
-                    <div class="item">
-                        <i class="conversation icon"></i>
-                        Discussion
-                    </div>
-                </div>
-            </div>
-
-            <div class="ui grey floating labeled icon dropdown button">
-                <i class="add circle icon"></i>
-                <span class="text">dodaj załącznik</span>
-            </div>
-
-            <h3 class="ui block header">
                 Lista elementów ({{ showModel.elements.length }})
             </h3>
+
             <table class="ui selectable celled table" v-if="showModel.elements.length > 0">
                 <thead>
                 <tr>
@@ -114,7 +58,7 @@
                     <td class="collapsing">{{ element.name }}</td>
                     <td class="collapsing">{{ element.thickness }} x {{ element.width }} x {{ element.length }}</td>
                     <td>{{ element.pivot.quantity }}</td>
-                    <td class="collapsing right aligned"><a href="#" class="mini ui button">wyświetl</a></td>
+                    <td class="collapsing right aligned"><a href="#" class="mini ui button" v-link="{ name: 'element-show', params: { id: element.id }}">wyświetl</a></td>
                 </tr>
                 </tbody>
             </table>

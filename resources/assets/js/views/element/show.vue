@@ -84,7 +84,7 @@
             <tbody>
             <tr v-for="item in showModel.goods_received">
                 <td>{{ item.created_at }}</td>
-                <td>{{ item.number }}</td>
+                <td><a href="#" v-link="{ name: 'goods-received-show', params: { id: item.id }}">{{ item.number }}</a></td>
                 <td>+ {{ item.pivot.quantity }}</td>
             </tr>
             </tbody>
