@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td>Liczba elementów</td>
-                    <td>0</td>
+                    <td>{{ showModel.elements.length }}</td>
                 </tr>
                 <tr>
                     <td>Data otrzymania</td>
