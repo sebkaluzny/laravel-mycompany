@@ -23,14 +23,18 @@
     </table>
 
     <a class="ui button" href="#" v-link="{ path: '/goods-received/create' }">Dodaj nowy</a>
+    <page-loader :busy.sync="indexIsBusy"></page-loader>
 </template>
 <script type="text/ecmascript-6">
 
     import { goodsReceived, index } from "../vuex/getters/goods-received-getters"
     import { fetchGoodsReceived, GoodsReceivedIndex } from "../vuex/actions/goods-received"
     import { triggerLoadAnimation, triggerLoadAnimationDone } from "../vuex/actions/app"
+    import PageLoader from './../components/PageLoader.vue';
 
     export default{
+        components: {PageLoader},
+
         vuex: {
             getters: {
                 goodsReceived: goodsReceived,
@@ -47,8 +51,9 @@
 
         route: {
             data() {
+                this.busy = true;
                 this.GoodsReceivedIndex().then(() => {
-                    console.log('loaded');
+                    this.busy = false;
                 });
             },
         },
@@ -62,7 +67,7 @@
 
         data: function () {
             return {
-
+                busy: false,
             }
         },
 

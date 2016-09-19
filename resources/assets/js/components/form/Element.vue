@@ -10,15 +10,15 @@
             <div class="fields" v-if="fields.indexOf('size') !== -1">
                 <div class="field">
                     <label>Grubość</label>
-                    <input type="text" placeholder="Grubość" v-model="form.thickness">
+                    <input type="number" step="0.01" placeholder="Grubość" v-model="form.thickness">
                 </div>
                 <div class="field">
                     <label>Szerokość</label>
-                    <input type="text" placeholder="Szerokość" v-model="form.width">
+                    <input type="number" step="0.01" placeholder="Szerokość" v-model="form.width">
                 </div>
                 <div class="field">
                     <label>Długość</label>
-                    <input type="text" placeholder="Długość" v-model="form.length">
+                    <input type="number" step="0.01" placeholder="Długość" v-model="form.length">
                 </div>
             </div>
             <div class="field" v-if="fields.indexOf('note') !== -1">
