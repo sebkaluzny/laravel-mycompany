@@ -23,7 +23,8 @@
     </table>
 
     <a class="ui button" href="#" v-link="{ path: '/goods-received/create' }">Dodaj nowy</a>
-    <page-loader :busy.sync="indexIsBusy"></page-loader>
+
+    <page-loader :busy.sync="busy"></page-loader>
 </template>
 <script type="text/ecmascript-6">
 

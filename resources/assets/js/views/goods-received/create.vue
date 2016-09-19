@@ -84,6 +84,10 @@
                     this.fetchGoodsReceived().then(() => {
                         this.$route.router.go("/goods-received");
                     });
+                }, e => {
+                    window.alert("TO-DO ERROR. Czy wszystkie pola zostały uzupełnione?");
+
+                    this.form.busy = false;
                 });
             },
 
