@@ -77,6 +77,10 @@
                     this.form.busy = false;
                     this.setGoodsReceivedShowModel(model.id);
                     this.$route.router.go("/goods-received/" + model.id);
+                }, e => {
+                    window.alert("TO-DO ERROR. Czy wszystkie pola zostały uzupełnione?");
+
+                    this.form.busy = false;
                 });
             },
         }
