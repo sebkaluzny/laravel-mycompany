@@ -13,7 +13,9 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('app', require('./components/app.vue'));
+// Vue.component('app', require('./components/app.vue'));
+
+Vue.component('element-task-menu', require('./views/element-task/_menu.vue'));
 
 // const app = new Vue({
 //     el: 'body'

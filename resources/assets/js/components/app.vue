@@ -1,5 +1,7 @@
 <template>
-    <main-view></main-view>
+    <div>
+        <main-view></main-view>
+    </div>
 </template>
 <script type="text/ecmascript-6">
 
@@ -11,6 +13,7 @@
 
     export default{
         store: store,
+
         components: { MainView },
 
         data: function () {
