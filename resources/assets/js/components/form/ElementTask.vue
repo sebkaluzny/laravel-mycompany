@@ -1,5 +1,5 @@
 <template>
-    <form v-on:submit.prevent="submitCallback">
+    <form v-on:submit.prevent="submit">
         <div class="ui form">
             <div class="field">
                 <label>Zadanie</label>
@@ -43,14 +43,15 @@
 
         watch: {
             tasks: function () {
+                this.updateActiveTask();
+
                 $('select.dropdown')
                         .dropdown()
                 ;
             },
 
             activeTask: function () {
-                this.form.id = this.activeTask;
-                this.taskModel = window._.find(this.tasks, {id: this.activeTask});
+                this.updateActiveTask();
             }
 
         },
@@ -78,6 +79,15 @@
          * Component methods
          */
         methods: {
+            updateActiveTask: function () {
+                this.form.id = this.activeTask;
+                this.taskModel = window._.find(this.tasks, {id: this.activeTask});
+            },
+
+            submit: function () {
+                this.updateActiveTask();
+                this.submitCallback();
+            }
         }
     }
 </script>

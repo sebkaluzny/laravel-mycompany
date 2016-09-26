@@ -11,6 +11,7 @@
                 Elementy <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="#" v-link="{ path: '/element' }">Lista elementów</a>
+                    <a class="item" href="#" v-link="{ path: '/element/create' }">Nowy element</a>
                     <a class="item" href="#" v-link="{ path: '/element-task' }">Lista zadań</a>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import GoodsReceivedShow from './views/goods-received/show.vue';
 import GoodsReceivedEdit from './views/goods-received/edit.vue';
 
 import ElementIndex from './views/element/index.vue';
+import ElementCreate from './views/element/create.vue';
 import ElementShow from './views/element/show.vue';
 
 import ElementTaskMain from './views/element-task/main.vue';
@@ -52,6 +53,10 @@ router.map({
 
     '/element': {
         component: ElementIndex
+    },
+
+    '/element/create': {
+        component: ElementCreate
     },
 
     '/element/index/project/:project': {

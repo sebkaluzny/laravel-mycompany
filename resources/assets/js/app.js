@@ -24,6 +24,8 @@ Vue.component('project-select-modal', require('./components/modals/SelectProject
 
 Vue.component('export-elements-modal', require('./components/modals/ExportElements.vue'));
 
+Vue.component('element-form', require('./components/form/Element.vue'));
+
 
 // const app = new Vue({
 //     el: 'body'
