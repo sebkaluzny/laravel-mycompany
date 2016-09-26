@@ -28,6 +28,8 @@ interface ElementInterface
 
     public function exportData($elements, $data);
 
+    public function replicate($model, $newName);
+
     /**
      * @param $model
      * @param $quantities

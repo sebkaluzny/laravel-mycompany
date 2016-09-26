@@ -27,12 +27,11 @@ class ElementRepository extends EloquentRepository implements ElementInterface
         if (isset($input['search']))
         {
             return $this->search(['name' => $input['search']]);
-        }
-        else
+        } else
         {
             $query = $this->model->with('tasks', 'project');
 
-            if(isset($input['project_id']) && (int) $input['project_id'] != 0)
+            if (isset($input['project_id']) && (int) $input['project_id'] != 0)
             {
                 $query->where('project_id', (int) $input['project_id']);
             }
@@ -103,33 +102,6 @@ class ElementRepository extends EloquentRepository implements ElementInterface
         $model->tasks()->detach($task);
     }
 
-    private function parseColumns($data)
-    {
-        $columns = [];
-
-        $columns[] = 'id';
-
-        foreach($data as $item)
-        {
-            if($item == 'position')
-            {
-                $columns[] = 'name';
-            }
-            else if($item == 'size')
-            {
-                $columns[] = 'thickness';
-                $columns[] = 'width';
-                $columns[] = 'length';
-            }
-            else
-            {
-                $columns[] = $item;
-            }
-        }
-
-        return $columns;
-    }
-
     public function export($elements, $type, $data)
     {
         $models = $this->model->select($this->parseColumns($data))->whereIn('id', $elements)->get();
@@ -140,11 +112,74 @@ class ElementRepository extends EloquentRepository implements ElementInterface
 //        dd($models->toJson());
     }
 
+    private function parseColumns($data)
+    {
+        $columns = [];
+
+        $columns[] = 'id';
+
+        foreach ($data as $item)
+        {
+            if ($item == 'position')
+            {
+                $columns[] = 'name';
+            } else
+            {
+                if ($item == 'size')
+                {
+                    $columns[] = 'thickness';
+                    $columns[] = 'width';
+                    $columns[] = 'length';
+                } else
+                {
+                    $columns[] = $item;
+                }
+            }
+        }
+
+        return $columns;
+    }
+
     public function exportData($elements, $data)
     {
         $models = $this->model->select($this->parseColumns($data))->whereIn('id', $elements)->get();
 
         return $models;
+    }
+
+    public function replicate($model, $newName)
+    {
+        $element = $model->replicate();
+        $element->name = $newName;
+        $element->push();
+
+        // TODO auto relationship copy
+        foreach($model->tasks()->get() as $task)
+        {
+            $element->tasks()->attach($task->id, ['fields' => $task->pivot->fields, 'quantity' => $task->pivot->quantity]);
+        }
+
+        foreach($model->files()->get() as $file)
+        {
+            $this->attachFile($element, $file->id);
+        }
+
+//
+//        $model->relations = [];
+//        $model->load('files', 'tasks');
+//        $relations = $model->getRelations();
+//
+//        foreach ($relations as $relation)
+//        {
+//            foreach ($relation as $relationRecord)
+//            {
+//                $newRelationship = $relationRecord->replicate();
+//                $newRelationship->element_id = $element->id;
+//                $newRelationship->push();
+//            }
+//        }
+
+        return $element;
     }
 
 

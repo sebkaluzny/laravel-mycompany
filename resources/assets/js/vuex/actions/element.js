@@ -103,6 +103,17 @@ export const ElementsExport = ({ dispatch, state }, data) => {
     return promise
 }
 
+export const ElementReplicate = ({ dispatch, state }, data) => {
+    const promise = new Promise((resolve, reject) => {
+        Vue.http.post("api/element/replicate", data).then((response) => {
+            resolve(response.data.element)
+        }, (response) => {
+            reject(response.data)
+        })
+    })
+    return promise
+}
+
 export const ElementIndex = ({ dispatch, state }, data = {}) => {
     const promise = new Promise((resolve, reject) => {
         dispatch('SET_INDEX_ELEMENTS_BUSY', true);

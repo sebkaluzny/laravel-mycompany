@@ -214,6 +214,18 @@ class ElementController extends Controller
         ]);
     }
 
+    public function replicate(Request $request)
+    {
+        $id = $request->get('id');
+        $name = $request->get('name');
+
+        $model = $this->element->replicate($this->element->get($id), $name);
+
+        return response()->json([
+            'element' => $model
+        ]);
+    }
+
     public function postExport(Request $request)
     {
 
@@ -292,9 +304,16 @@ class ElementController extends Controller
         $data = [];
 //        $newData = [];
 
+        $columns = $ElementsExport->export_data;
+
         foreach ($ElementsExport->data as $k => $item)
         {
             $array = [];
+
+            foreach($columns as $column)
+            {
+
+            }
 
             if(isset($item->name))
                 $array['Nazwa'] = $item->name;

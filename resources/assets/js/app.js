@@ -25,6 +25,7 @@ Vue.component('project-select-modal', require('./components/modals/SelectProject
 Vue.component('export-elements-modal', require('./components/modals/ExportElements.vue'));
 
 Vue.component('element-form', require('./components/form/Element.vue'));
+Vue.component('element-replicate-modal', require('./components/modals/ElementReplicate.vue'));
 
 
 // const app = new Vue({

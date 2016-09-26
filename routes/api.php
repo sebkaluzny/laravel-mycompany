@@ -28,6 +28,7 @@ Route::group(['namespace' => 'API'], function() {
     Route::post('element/attach-task', 'ElementController@attachTask');
     Route::post('element/detach-task', 'ElementController@detachTask');
     Route::post('element/export', 'ElementController@postExport');
+    Route::post('element/replicate', 'ElementController@replicate');
     Route::get('element/export/{hash}/{type}', 'ElementController@getExport');
     Route::resource('element', 'ElementController');
 

@@ -60,6 +60,9 @@
                     <a class="ui right floated small primary labeled icon button" v-on:click.prevent="edit">
                         <i class="edit icon"></i> edytuj
                     </a>
+                    <a class="ui right floated small labeled icon button" v-on:click.prevent="replicate">
+                        <i class="edit icon"></i> duplikuj
+                    </a>
                 </th>
             </tr>
             </tfoot>
@@ -112,12 +115,12 @@
     <select-element-modal></select-element-modal>
 
     <project-select-modal :project-callback="setProject"></project-select-modal>
-
+    <element-replicate-modal :submit-callback="doReplicate"></element-replicate-modal>
     <page-loader :busy.sync="showIsBusy"></page-loader>
 </template>
 <script type="text/ecmascript-6">
     import {showIsBusy, showModel} from "./../../vuex/getters/element-getters"
-    import {setElementShow, ElementAttachFile, ElementDetachFile,setElementShowModel, ElementUpdate} from "./../../vuex/actions/element"
+    import {setElementShow, ElementAttachFile, ElementDetachFile,setElementShowModel, ElementUpdate, ElementReplicate} from "./../../vuex/actions/element"
 
     import PageLoader from './../../components/PageLoader.vue';
     import SelectFileModal from './../../components/modals/SelectFile.vue';
@@ -140,7 +143,8 @@
                 ElementAttachFile,
                 ElementDetachFile,
                 setElementShowModel,
-                ElementUpdate
+                ElementUpdate,
+                ElementReplicate
             }
         },
 
@@ -244,6 +248,23 @@
                 });
 
                 this.$broadcast('modal:select-project:hide');
+            },
+
+            replicate: function () {
+                this.$broadcast('modal:element-replicate:show');
+            },
+
+            doReplicate: function (form) {
+                this.$broadcast('modal:element-replicate:hide');
+
+                this.ElementReplicate({
+                    id: this.showModel.id,
+                    name: form.name
+                }).then(element => {
+                    this.$route.router.go("/element/" + element.id);
+                }, e => {
+                    console.error(e);
+                });
             }
         }
     }
