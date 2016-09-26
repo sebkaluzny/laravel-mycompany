@@ -312,23 +312,62 @@ class ElementController extends Controller
 
             foreach($columns as $column)
             {
+                if($column == 'position')
+                {
+                    $array['Nazwa'] = $item->name;
+                }
+                else if($column == 'making')
+                {
+                    $array['Materiał'] = isset($item->making) ? $item->making : '-' ;
+                }
+                else if($column == 'size')
+                {
+                    $array['Wymiary'] = isset($item->thickness) ? "{$item->thickness} x {$item->width} x {$item->length}" : '-' ;
+                }
+                else if($column == 'quantity')
+                {
+                    $array['Sztuk'] = (int) $item->quantity;
+                }
+                else if($column == 'done_quantity')
+                {
+                    $array['Wyk. szt.'] = (int) $item->done_quantity;
+                }
+                else if($column == 'tasks')
+                {
+                    $tasks = [];
 
+                    foreach($item->tasks as $task)
+                    {
+                        $fieldsValue = json_decode($task->pivot->fields);
+
+                        $fields = [];
+
+                        foreach($task->fields as $k => $field)
+                        {
+                            $fields[] = "{$field->name}: {$fieldsValue[$k]}{$field->unit}";
+                        }
+
+                        $tasks[] = "{$task->name} x{$task->pivot->quantity} " . implode(',', $fields) . "; ";
+                    }
+
+                    $array['Zadania'] = count($item->tasks) ? $tasks : '-';
+                }
             }
 
-            if(isset($item->name))
-                $array['Nazwa'] = $item->name;
-
-            if(isset($item->making))
-                $array['Materiał'] = $item->making;
-
-            if(isset($item->thickness) && isset($item->width) && isset($item->length))
-                $array['Wymiary'] = "{$item->thickness} x {$item->width} x {$item->length}";
-
-            if(isset($item->quantity))
-                $array['Sztuk'] = $item->quantity;
-
-            if(isset($item->done_quantity))
-                $array['Wyk. szt.'] = $item->done_quantity;
+//            if(isset($item->name))
+//                $array['Nazwa'] = $item->name;
+//
+//            if(isset($item->making))
+//                $array['Materiał'] = $item->making;
+//
+//            if(isset($item->thickness) && isset($item->width) && isset($item->length))
+//                $array['Wymiary'] = "{$item->thickness} x {$item->width} x {$item->length}";
+//
+//            if(isset($item->quantity))
+//                $array['Sztuk'] = $item->quantity;
+//
+//            if(isset($item->done_quantity))
+//                $array['Wyk. szt.'] = $item->done_quantity;
 
 
             $data[] = $array;

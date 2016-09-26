@@ -17,12 +17,9 @@
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
+                    <th>Lp.</th>
                     @foreach(array_keys((array)$data[0]) as $key)
-                        @if ($key != 'id')
-                            <th>{{ $key }}</th>
-                        @else
-                            <th>#</th>
-                        @endif
+                        <th>{{ $key }}</th>
                     @endforeach
                 </tr>
                 </thead>
@@ -30,15 +27,16 @@
                 <?PHP $i = 1; ?>
                 @foreach($data as $item)
                     <tr>
+                        <td>{{ $i }}</td>
                         @foreach($item as $key => $val)
-                            @if ($key != 'id')
-                                <td>{{ $val }}</td>
+                            @if($key == 'Zadania' && is_array($val) )
+                                <td>{!! implode('<br />', $val) !!}</td>
                             @else
-                                <td>{{ $i }}</td>
+                                <td>{{ $val }}</td>
                             @endif
                         @endforeach
                     </tr>
-                    <?PHP $i++; ?>
+                    <?PHP $i ++; ?>
                 @endforeach
                 </tbody>
             </table>

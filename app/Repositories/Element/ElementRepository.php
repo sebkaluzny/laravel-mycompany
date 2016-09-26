@@ -130,6 +130,9 @@ class ElementRepository extends EloquentRepository implements ElementInterface
                     $columns[] = 'thickness';
                     $columns[] = 'width';
                     $columns[] = 'length';
+                } elseif ($item == 'tasks')
+                {
+
                 } else
                 {
                     $columns[] = $item;
@@ -142,9 +145,14 @@ class ElementRepository extends EloquentRepository implements ElementInterface
 
     public function exportData($elements, $data)
     {
-        $models = $this->model->select($this->parseColumns($data))->whereIn('id', $elements)->get();
+        $query = $this->model->select($this->parseColumns($data))->whereIn('id', $elements);
 
-        return $models;
+        if(in_array('tasks', $data))
+        {
+            $query->with('tasks');
+        }
+
+        return $query->get();
     }
 
     public function replicate($model, $newName)
