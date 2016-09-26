@@ -12,19 +12,19 @@
     <style>
         /*@import 'https://fonts.googleapis.com/css?family=Open+Sans&subset=latin-ext';*/
         /*@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&subset=latin-ext';*/
-        @font-face {
-            font-family: 'Open Sanz';
-            font-style: normal;
-            font-weight: normal;
-            src: url({{ asset('fonts/OpenSans-Regular.ttf') }}) format('truetype');
-        }
+        {{--@font-face {--}}
+            {{--font-family: 'Open Sanz';--}}
+            {{--font-style: normal;--}}
+            {{--font-weight: normal;--}}
+            {{--src: url({{ asset('fonts/OpenSans-Regular.ttf') }}) format('truetype');--}}
+        {{--}--}}
 
-        @font-face {
-            font-family: 'Open Sanz';
-            font-style: normal;
-            font-weight: bold;
-            src: url({{ asset('fonts/OpenSans-Bold.ttf') }}) format('truetype');
-        }
+        {{--@font-face {--}}
+            {{--font-family: 'Open Sanz';--}}
+            {{--font-style: normal;--}}
+            {{--font-weight: bold;--}}
+            {{--src: url({{ asset('fonts/OpenSans-Bold.ttf') }}) format('truetype');--}}
+        {{--}--}}
 
         body {
             font-family: 'Open Sanz';
@@ -48,6 +48,8 @@
     </style>
 </head>
 <body>
+
+
 
 @yield('content')
 
