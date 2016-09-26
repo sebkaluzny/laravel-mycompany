@@ -72,6 +72,12 @@ class ElementRepository extends EloquentRepository implements ElementInterface
         return $model;
     }
 
+    public function pickElements(array $elements = [])
+    {
+        return $this->model->whereIn('id', $elements)->get();
+    }
+
+
     public function attachFile($model, $file)
     {
         $model->files()->attach(File::find($file));

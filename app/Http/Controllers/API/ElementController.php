@@ -252,37 +252,6 @@ class ElementController extends Controller
         return response()->json([
             'url' => action('API\ElementController@getExport', ['hash' => $hash, 'type' => $type]),
         ]);
-
-//        switch($type)
-//        {
-//            case 'csv':
-//                $data = $this->element->exportData($elements, $exportData);
-//
-////                $fileName = date('d-m-Y').'.csv';
-////
-////                header('Content-Type: text/csv; charset=utf-8');
-////                header('Content-Disposition: attachment; filename=' . $fileName);
-////                header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
-////                header("Pragma: no-cache");
-////                header("Expires: 0");
-////                header("FileName: " . $fileName);
-////
-////                $csv = $this->element->export($elements, $type, $exportData);
-//                break;
-//
-//            case 'pdf':
-//                $data = $this->element->exportData($elements, $exportData);
-//
-//
-//                return view('pdf.elements-export')->withData($data);
-////                $export = new PDFExporter($data);
-//
-//                break;
-//
-//            default:
-//                throw new \Exception('Invalid Type');
-//                break;
-//        }
     }
 
     public function getExport($hash, $type)
@@ -406,5 +375,30 @@ class ElementController extends Controller
         }
 
 
+    }
+
+    public function pricing(Request $request)
+    {
+        $elements = $request->get('elements');
+
+        $data = $this->element->pickElements($elements);
+
+        $tasks = [];
+
+        foreach($data as $element)
+        {
+            foreach($element->tasks()->get() as $task)
+            {
+                $task['price'] = 1;
+                $tasks[$task->name]['price'] = 0;
+                $tasks[$task->name]['quantity'] = 0;
+                $tasks[$task->name]['fields'] = $task->fields;
+                $tasks[$task->name]['tasks'][] = $task;
+            }
+        }
+
+        return response()->json([
+            'tasks' => $tasks
+        ]);
     }
 }

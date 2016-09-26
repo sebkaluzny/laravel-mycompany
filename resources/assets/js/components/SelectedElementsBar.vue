@@ -10,7 +10,7 @@
                     <div class="item">
                         Wydanie na zewnątrz
                     </div>
-                    <div class="item">
+                    <div class="item" v-on:click.prevent="pricing">
                         Wycena
                     </div>
                 </div>
@@ -97,40 +97,13 @@
 
                     var win = window.open(url, '_blank');
                     win.focus();
-
-//                    var uriContent = "data:application/octet-stream," + encodeURIComponent(response.data);
-//
-//                    if(type == 'csv')
-//                    {
-//                        this.saveAs(uriContent, response.headers.FileName);
-//                    }
-//                    else
-//                    {
-////                        var newWindow=window.open(uriContent, 'asdasd.txt');
-//                        var w = window.open('about:blank', 'windowname');
-//                        w.document.write(uriContent);
-//                        w.document.close();
-//                    }
-//                    var a = $('<a href=""></a>');
-//                    a.attr("href", uriContent).attr("download", response.headers.FileName);
-
-//                    var newWindow=window.open(uriContent, 'asdasd.txt');
                 });
 
             },
 
-            saveAs: function (uri, filename) {
-                var link = document.createElement('a');
-                if (typeof link.download === 'string') {
-                    document.body.appendChild(link); // Firefox requires the link to be in the body
-                    link.download = filename;
-                    link.href = uri;
-                    link.click();
-                    document.body.removeChild(link); // remove the link when done
-                } else {
-                    location.replace(uri);
-                }
-            }
+            pricing: function () {
+                this.$route.router.go("/element/pricing");
+            },
         }
     }
 </script>

@@ -114,6 +114,17 @@ export const ElementReplicate = ({ dispatch, state }, data) => {
     return promise
 }
 
+export const ElementsPricing = ({ dispatch, state }, data) => {
+    const promise = new Promise((resolve, reject) => {
+        Vue.http.post("api/element/pricing", data).then((response) => {
+            resolve(response.data.tasks)
+        }, (response) => {
+            reject(response.data)
+        })
+    })
+    return promise
+}
+
 export const ElementIndex = ({ dispatch, state }, data = {}) => {
     const promise = new Promise((resolve, reject) => {
         dispatch('SET_INDEX_ELEMENTS_BUSY', true);

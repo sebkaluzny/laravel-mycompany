@@ -7,12 +7,14 @@ import GoodsReceivedEdit from './views/goods-received/edit.vue';
 import ElementIndex from './views/element/index.vue';
 import ElementCreate from './views/element/create.vue';
 import ElementShow from './views/element/show.vue';
+import ElementPricing from './views/element/pricing.vue';
 
 import ElementTaskMain from './views/element-task/main.vue';
 import ElementTaskIndex from './views/element-task/index.vue';
 import ElementTaskCreate from './views/element-task/create.vue';
 import ElementTaskShow from './views/element-task/show.vue';
 import ElementTaskEdit from './views/element-task/edit.vue';
+
 
 // Create a router instance.
 // You can pass in additional options here, but let's
@@ -57,6 +59,10 @@ router.map({
 
     '/element/create': {
         component: ElementCreate
+    },
+
+    '/element/pricing': {
+        component: ElementPricing
     },
 
     '/element/index/project/:project': {
