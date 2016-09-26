@@ -110,8 +110,8 @@
                         tazk.price = 0;
 
                         window._.each(tazk.tasks, function (task, index2) {
-                            tazk.quantity += task.pivot.quantity;
-                            tazk.price += parseInt(task.price) * task.pivot.quantity;
+                            tazk.quantity += parseInt(task.pivot.quantity);
+                            tazk.price += parseInt(task.price) * parseInt(task.pivot.quantity);
 //                            tazk.price += parseInt(task.price) * task.pivot.quantity;
 //                            this.tasks[index].$set('price', parseInt(task.price) * task.pivot.quantity);
                         })
