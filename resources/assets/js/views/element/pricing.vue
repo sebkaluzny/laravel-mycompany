@@ -25,7 +25,7 @@
                     <td>
                         <div class="ui right labeled input">
                             <input type="text" v-model="task.price" @change="calculateTasks" number>
-                            <div class="ui basic label">
+                            <div class="ui label">
                                 zł
                             </div>
                         </div>
