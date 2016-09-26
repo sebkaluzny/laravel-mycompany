@@ -23,13 +23,18 @@
                     </td>
                     <td>{{ task.pivot.quantity }}</td>
                     <td>
-                        <div class="ui input"><input type="text" v-model="task.price" @change="calculateTasks" number></div>
+                        <div class="ui right labeled input">
+                            <input type="text" v-model="task.price" @change="calculateTasks" number>
+                            <div class="ui basic label">
+                                zł
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td style="text-align: right;">Suma</td>
                     <td>{{ taskz.quantity }}</td>
-                    <td>{{ taskz.price }}</td>
+                    <td>{{ taskz.price }} zł</td>
                 </tr>
             </template>
             </tbody>
