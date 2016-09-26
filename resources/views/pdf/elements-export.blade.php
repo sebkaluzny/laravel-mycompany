@@ -29,8 +29,9 @@
                     <tr>
                         <td>{{ $i }}</td>
                         @foreach($item as $key => $val)
-                            @if( is_array($val) )
-                                <td>{!! implode('<br />', $val) !!}</td>
+                            @if($key == 'Zadania' && (is_array($val)) )
+                                <?PHP $obj = (array) $val;?>
+                                <td>{!! implode('<br />', $obj) !!}</td>
                             @else
                                 <td>{{ $val }}</td>
                             @endif
