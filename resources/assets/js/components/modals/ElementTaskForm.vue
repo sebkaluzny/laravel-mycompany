@@ -60,6 +60,7 @@
         events: {
             'modal:element-task-form:show': function () {
                 $('#' + this.div).modal('show');
+                this.$broadcast('element-task:form:refresh');
             },
 
             'modal:element-task-form:hide': function () {

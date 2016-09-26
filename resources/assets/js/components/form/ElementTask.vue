@@ -72,7 +72,11 @@
         },
 
 
-        events: {},
+        events: {
+            'element-task:form:refresh': function () {
+                this.updateActiveTask();
+            }
+        },
 
 
         /*
@@ -80,6 +84,7 @@
          */
         methods: {
             updateActiveTask: function () {
+                console.log('updating task');
                 this.form.id = this.activeTask;
                 this.taskModel = window._.find(this.tasks, {id: this.activeTask});
             },
