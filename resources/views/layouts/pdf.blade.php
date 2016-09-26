@@ -9,7 +9,6 @@
     {{--<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&subset=latin-ext" rel="stylesheet">--}}
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <style>
         /*@import 'https://fonts.googleapis.com/css?family=Open+Sans&subset=latin-ext';*/
         /*@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&subset=latin-ext';*/
@@ -17,14 +16,14 @@
             font-family: 'Open Sanz';
             font-style: normal;
             font-weight: normal;
-            src: url(http://mycompany.dev/fonts/OpenSans-Regular.ttf) format('truetype');
+            src: url({{ asset('fonts/OpenSans-Regular.ttf') }}) format('truetype');
         }
 
         @font-face {
             font-family: 'Open Sanz';
             font-style: normal;
             font-weight: bold;
-            src: url(http://mycompany.dev/fonts/OpenSans-Bold.ttf) format('truetype');
+            src: url({{ asset('fonts/OpenSans-Bold.ttf') }}) format('truetype');
         }
 
         body {
