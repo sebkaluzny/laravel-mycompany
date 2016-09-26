@@ -309,7 +309,7 @@ class ElementController extends Controller
                 $array['Sztuk'] = $item->quantity;
 
             if(isset($item->done_quantity))
-                $array['Wyk. szt.'] = $item->quantity;
+                $array['Wyk. szt.'] = $item->done_quantity;
 
 
             $data[] = $array;
@@ -317,7 +317,7 @@ class ElementController extends Controller
 
         $data = json_decode(json_encode($data));
 
-        dd($data);
+//        dd($data);
 
         if($type == 'csv')
         {
