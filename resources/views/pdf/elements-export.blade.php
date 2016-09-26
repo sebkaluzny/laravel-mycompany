@@ -29,7 +29,7 @@
                     <tr>
                         <td>{{ $i }}</td>
                         @foreach($item as $key => $val)
-                            @if($key == 'Zadania' && is_array($val) )
+                            @if( is_array($val) )
                                 <td>{!! implode('<br />', $val) !!}</td>
                             @else
                                 <td>{{ $val }}</td>
