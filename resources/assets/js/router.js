@@ -11,6 +11,7 @@ import ElementTaskMain from './views/element-task/main.vue';
 import ElementTaskIndex from './views/element-task/index.vue';
 import ElementTaskCreate from './views/element-task/create.vue';
 import ElementTaskShow from './views/element-task/show.vue';
+import ElementTaskEdit from './views/element-task/edit.vue';
 
 // Create a router instance.
 // You can pass in additional options here, but let's
@@ -53,6 +54,11 @@ router.map({
         component: ElementIndex
     },
 
+    '/element/index/project/:project': {
+        name: 'element-index-filter',
+        component: ElementIndex
+    },
+
     '/element/:id' : {
         name: 'element-show',
         component: ElementShow,
@@ -72,6 +78,10 @@ router.map({
             '/:id': {
                 name: 'element-task-show',
                 component: ElementTaskShow,
+            },
+            '/:id/edit': {
+                name: 'element-task-edit',
+                component: ElementTaskEdit,
             }
         }
     }

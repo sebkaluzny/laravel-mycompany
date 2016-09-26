@@ -25,10 +25,18 @@ Route::group(['namespace' => 'API'], function() {
     Route::post('element/search', 'ElementController@search');
     Route::post('element/attach-file', 'ElementController@attachFile');
     Route::post('element/detach-file', 'ElementController@detachFile');
+    Route::post('element/attach-task', 'ElementController@attachTask');
+    Route::post('element/detach-task', 'ElementController@detachTask');
+    Route::post('element/export', 'ElementController@postExport');
+    Route::get('element/export/{hash}/{type}', 'ElementController@getExport');
     Route::resource('element', 'ElementController');
+
+    Route::resource('element-task', 'ElementTaskController');
 
     Route::resource('company', 'CompanyController');
 
     Route::post('file/search', 'FileController@search');
     Route::resource('file', 'FileController');
+
+    Route::resource('project', 'ProjectController');
 });

@@ -14,8 +14,16 @@ require('./bootstrap');
  */
 
 // Vue.component('app', require('./components/app.vue'));
+Vue.component('page-loader', require('./components/PageLoader.vue'));
 
 Vue.component('element-task-menu', require('./views/element-task/_menu.vue'));
+Vue.component('element-task-form', require('./views/element-task/_form.vue'));
+
+Vue.component('project-form', require('./components/form/Project.vue'));
+Vue.component('project-select-modal', require('./components/modals/SelectProject.vue'));
+
+Vue.component('export-elements-modal', require('./components/modals/ExportElements.vue'));
+
 
 // const app = new Vue({
 //     el: 'body'

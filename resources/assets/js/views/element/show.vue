@@ -44,6 +44,14 @@
                 <td>Notatka</td>
                 <td>{{ showModel.note }}</td>
             </tr>
+            <tr>
+                <td>Materiał</td>
+                <td>{{ showModel.making }}</td>
+            </tr>
+            <tr>
+                <td>Projekt</td>
+                <td>{{ showModel.project ? showModel.project.name: '-' }} <a href="#" v-on:click.prevent="chooseProject">wybierz projekt</a></td>
+            </tr>
             </tbody>
             <tfoot class="full-width">
             <tr>
@@ -58,12 +66,18 @@
         </table>
 
         <h3 class="ui block header">
+            Zadania
+        </h3>
+        <element-tasks :element.sync="showModel" :refresh-callback="refreshElement"></element-tasks>
+
+
+        <h3 class="ui block header">
             Załączniki
         </h3>
 
         <file-dropdown-button v-for="file in showModel.files" :file.sync="file"></file-dropdown-button>
 
-        <div class="ui grey floating labeled icon dropdown button" v-on:click.prevent="addFile">
+        <div class="ui grey floating labeled icon button" v-on:click.prevent="addFile">
             <i class="add circle icon"></i>
             <span class="text">dodaj załącznik</span>
         </div>
@@ -97,21 +111,24 @@
     <file-unattach-modal></file-unattach-modal>
     <select-element-modal></select-element-modal>
 
+    <project-select-modal :project-callback="setProject"></project-select-modal>
+
     <page-loader :busy.sync="showIsBusy"></page-loader>
 </template>
 <script type="text/ecmascript-6">
     import {showIsBusy, showModel} from "./../../vuex/getters/element-getters"
-    import {setElementShow, ElementAttachFile, ElementDetachFile,setElementShowModel} from "./../../vuex/actions/element"
+    import {setElementShow, ElementAttachFile, ElementDetachFile,setElementShowModel, ElementUpdate} from "./../../vuex/actions/element"
 
     import PageLoader from './../../components/PageLoader.vue';
     import SelectFileModal from './../../components/modals/SelectFile.vue';
     import FileDropdownButton from './../../components/items/FileDropdownButton.vue';
+    import ElementTasks from './../../components/items/ElementTasks.vue';
     import FileUnattachModal from './../../components/modals/ConfirmFileUnattach.vue';
     import SelectElementModal from './../../components/modals/SelectElement.vue';
 
     export default{
 
-        components: {PageLoader, SelectFileModal, FileDropdownButton, FileUnattachModal, SelectElementModal},
+        components: {PageLoader, SelectFileModal, FileDropdownButton, FileUnattachModal, SelectElementModal, ElementTasks},
 
         vuex: {
             getters: {
@@ -122,7 +139,8 @@
                 setElementShow,
                 ElementAttachFile,
                 ElementDetachFile,
-                setElementShowModel
+                setElementShowModel,
+                ElementUpdate
             }
         },
 
@@ -149,7 +167,7 @@
                 this.$broadcast('modal:select-file:hide')
 
                 this.ElementAttachFile(data).then(() => {
-                    this.setElementShow(this.showModel.id);
+                    this.refreshElement();
                 });
             },
 
@@ -203,8 +221,30 @@
             },
 
             edit: function () {
-                this.$broadcast('modal:select-element:show', null, this.showModel, ['name', 'size', 'note', 'done_quantity']);
+                this.$broadcast('modal:select-element:show', null, this.showModel, ['name', 'size', 'note', 'done_quantity', 'quantity', 'making']);
             },
+
+            addTask: function () {
+
+            },
+
+            refreshElement: function () {
+                this.setElementShow(this.showModel.id);
+            },
+
+            chooseProject: function () {
+                this.$broadcast('modal:select-project:show');
+            },
+
+            setProject: function (project) {
+
+                this.ElementUpdate(this.showModel.id, {project_id: project.id}).then(element => {
+//                    this.setElementShowModel(element);
+                    this.refreshElement();
+                });
+
+                this.$broadcast('modal:select-project:hide');
+            }
         }
     }
 </script>

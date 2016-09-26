@@ -1,7 +1,9 @@
 <template>
     <top-bar></top-bar>
 
-    <div class="ui main container">
+    <selected-elements-bar></selected-elements-bar>
+
+    <div class="ui main container" style="margin-bottom: 100px;">
         <div v-if="busy">
             Wczytywanie danych...
         </div>
@@ -12,12 +14,13 @@
 </template>
 <script type="text/ecmascript-6">
     import TopBar from './TopBar.vue';
+    import SelectedElementsBar from './SelectedElementsBar.vue';
 
     import { CompanyFetchAll } from "./../vuex/actions/company";
 
     export default{
 
-        components: { TopBar },
+        components: { TopBar, SelectedElementsBar },
 
         vuex: {
             getters: {},

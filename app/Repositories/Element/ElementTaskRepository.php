@@ -25,9 +25,47 @@ class ElementTaskRepository extends EloquentRepository implements ElementTaskInt
         return $this->model->get();
     }
 
+    public function get($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+
     public function create(array $input = [])
     {
-        $model = $this->model->create($input);
+        $m = new $this->model;
+
+        $m->name = $input['name'];
+
+        $m->fields = $this->getFieldsFromInput($input);
+
+        $m->save();
+
+        return $m;
+    }
+
+    private function getFieldsFromInput($input)
+    {
+        $fields = [];
+
+        foreach ($input['fields'] as $field)
+        {
+            $fields[] = [
+                'name' => ucfirst($field['name']),
+                'unit' => $field['unit'],
+            ];
+        }
+
+        return $fields;
+    }
+
+    public function update($model, array $input = [])
+    {
+        $model->name = $input['name'];
+
+        $model->fields = $this->getFieldsFromInput($input);
+
+        $model->save();
 
         return $model;
     }

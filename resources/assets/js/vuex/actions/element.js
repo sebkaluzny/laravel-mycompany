@@ -70,6 +70,39 @@ export const ElementDetachFile = ({ dispatch, state }, data) => {
     return promise
 }
 
+export const ElementAttachTask = ({ dispatch, state }, data) => {
+    const promise = new Promise((resolve, reject) => {
+        Vue.http.post("api/element/attach-task", data).then((response) => {
+            resolve(response.data)
+        }, (response) => {
+            reject(response.data)
+        })
+    })
+    return promise
+}
+
+export const ElementDetachTask = ({ dispatch, state }, data) => {
+    const promise = new Promise((resolve, reject) => {
+        Vue.http.post("api/element/detach-task", data).then((response) => {
+            resolve(response.data)
+        }, (response) => {
+            reject(response.data)
+        })
+    })
+    return promise
+}
+
+export const ElementsExport = ({ dispatch, state }, data) => {
+    const promise = new Promise((resolve, reject) => {
+        Vue.http.post("api/element/export", data).then((response) => {
+            resolve(response)
+        }, (response) => {
+            reject(response.data)
+        })
+    })
+    return promise
+}
+
 export const ElementIndex = ({ dispatch, state }, data = {}) => {
     const promise = new Promise((resolve, reject) => {
         dispatch('SET_INDEX_ELEMENTS_BUSY', true);

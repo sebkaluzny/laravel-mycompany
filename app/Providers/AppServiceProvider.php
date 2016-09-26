@@ -10,6 +10,8 @@ use App\Repositories\File\FileInterface;
 use App\Repositories\File\FileRepository;
 use App\Repositories\GoodsReceived\GoodsReceivedInterface;
 use App\Repositories\GoodsReceived\GoodsReceivedRepository;
+use App\Repositories\Project\ProjectInterface;
+use App\Repositories\Project\ProjectRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,5 +37,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ElementInterface::class, ElementRepository::class);
         $this->app->bind(FileInterface::class, FileRepository::class);
         $this->app->bind(ElementTaskInterface::class, ElementTaskRepository::class);
+        $this->app->bind(ProjectInterface::class, ProjectRepository::class);
     }
 }

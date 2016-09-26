@@ -158,6 +158,8 @@
                         length: element.length,
                         note: element.note,
                         done_quantity: element.done_quantity,
+                        making: element.making,
+                        quantity: element.quantity,
 
                         busy: false,
                     }

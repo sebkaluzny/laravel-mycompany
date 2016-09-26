@@ -25,9 +25,17 @@
                 <label>Notatka</label>
                 <textarea rows="2" v-model="form.note"></textarea>
             </div>
+            <div class="field" v-if="fields.indexOf('making') !== -1">
+                <label>Materiał</label>
+                <textarea rows="1" v-model="form.making"></textarea>
+            </div>
             <div class="field" v-if="fields.indexOf('done_quantity') !== -1">
                 <label>Wykonanych elementów</label>
                 <input type="number" v-model="form.done_quantity" placeholder="Liczba wykonanych elementów">
+            </div>
+            <div class="field" v-if="fields.indexOf('quantity') !== -1">
+                <label>Ilość na stanie</label>
+                <input type="number" v-model="form.quantity" placeholder="Ogólna liczba elementów">
             </div>
         </div>
         <button type="submit" style="display: none;"></button>

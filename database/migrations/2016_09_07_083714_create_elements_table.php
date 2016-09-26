@@ -16,6 +16,8 @@ class CreateElementsTable extends Migration
         Schema::create('elements', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->integer('project_id')->default(0);
+
             $table->string('name');
 
             $table->float('thickness')->default(0);
@@ -29,6 +31,8 @@ class CreateElementsTable extends Migration
             $table->integer('done_quantity')->default(0);
 
             $table->text('note');
+
+            $table->text('making')->nullable();
 
             $table->timestamps();
         });

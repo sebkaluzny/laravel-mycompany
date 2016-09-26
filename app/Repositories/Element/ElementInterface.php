@@ -20,6 +20,14 @@ interface ElementInterface
 
     public function unattachFile($model, $file);
 
+    public function attachTask($model, $task, $fields, $quantity);
+
+    public function detachTask($model, $task);
+
+    public function export($elements, $type, $data);
+
+    public function exportData($elements, $data);
+
     /**
      * @param $model
      * @param $quantities

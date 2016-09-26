@@ -5,7 +5,7 @@
     <div class="ui internally celled grid">
         <div class="row">
             <div class="three wide column">
-                <div class="ui fluid text vertical menu">
+                <div class="ui secondary vertical menu fluid">
                     <element-task-menu></element-task-menu>
                 </div>
             </div>

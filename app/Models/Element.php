@@ -12,7 +12,7 @@ class Element extends Model
 
     protected $table = 'elements';
 
-    protected $fillable = ['name', 'thickness', 'width', 'length', 'note', 'done_quantity'];
+    protected $fillable = ['name', 'thickness', 'width', 'length', 'note', 'done_quantity', 'project_id', 'quantity', 'making'];
 
 //    protected $appends = ['history'];
 
@@ -22,8 +22,19 @@ class Element extends Model
             'goods_received_id')->withPivot('quantity');
     }
 
+    public function tasks()
+    {
+        return $this->belongsToMany(ElementTask::class, 'element_task', 'element_id',
+            'task_id')->withPivot('quantity', 'fields');
+    }
+
     public function getFilesAttribute()
     {
         return $this->files()->get();
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Repositories\Element;
+namespace App\Repositories\Project;
 
 
-interface ElementTaskInterface
+interface ProjectInterface
 {
     public function all();
 

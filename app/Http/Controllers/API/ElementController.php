@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Lib\ElementsExporter\CSVExporter;
+use App\Models\ElementsExport;
 use App\Repositories\Element\ElementInterface;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 
 class ElementController extends Controller
 {
+
+    protected $types = ['csv', 'pdf'];
 
     /**
      * @var ElementInterface
@@ -175,5 +181,172 @@ class ElementController extends Controller
         return response()->json([
             'success' => 1,
         ]);
+    }
+
+    public function attachTask(Request $request)
+    {
+        $elementId = $request->get('element_id');
+        $taskId = $request->get('id');
+
+        $model = $this->element->get($elementId);
+
+        $this->element->attachTask($model, $taskId, $request->get('fields'), $request->get('quantity'));
+
+//        dd($model);
+//        $this->element->attachFile($model, $fileId);
+
+        return response()->json([
+            'success' => 1,
+        ]);
+    }
+
+    public function detachTask(Request $request)
+    {
+        $elementId = $request->get('element_id');
+        $taskId = $request->get('task_id');
+
+        $model = $this->element->get($elementId);
+
+        $this->element->detachTask($model, $taskId);
+
+        return response()->json([
+            'success' => 1,
+        ]);
+    }
+
+    public function postExport(Request $request)
+    {
+
+        $type = $request->get('type');
+        $exportData = $request->get('export_data');
+        $elements = $request->get('elements');
+
+        if (!in_array($type, $this->types))
+        {
+            throw new \Exception('Invalid type');
+        }
+
+        $data = $this->element->exportData($elements, $exportData);
+
+        $hash = str_random(8);
+
+        $elExportModel = new ElementsExport();
+        $elExportModel->hash = $hash;
+//        $elExportModel->type = $type;
+        $elExportModel->export_data = $exportData;
+        $elExportModel->data = $data;
+        $elExportModel->save();
+
+        return response()->json([
+            'url' => action('API\ElementController@getExport', ['hash' => $hash, 'type' => $type]),
+        ]);
+
+//        switch($type)
+//        {
+//            case 'csv':
+//                $data = $this->element->exportData($elements, $exportData);
+//
+////                $fileName = date('d-m-Y').'.csv';
+////
+////                header('Content-Type: text/csv; charset=utf-8');
+////                header('Content-Disposition: attachment; filename=' . $fileName);
+////                header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+////                header("Pragma: no-cache");
+////                header("Expires: 0");
+////                header("FileName: " . $fileName);
+////
+////                $csv = $this->element->export($elements, $type, $exportData);
+//                break;
+//
+//            case 'pdf':
+//                $data = $this->element->exportData($elements, $exportData);
+//
+//
+//                return view('pdf.elements-export')->withData($data);
+////                $export = new PDFExporter($data);
+//
+//                break;
+//
+//            default:
+//                throw new \Exception('Invalid Type');
+//                break;
+//        }
+    }
+
+    public function getExport($hash, $type)
+    {
+        if (!in_array($type, $this->types))
+        {
+            throw new \Exception('Invalid type');
+        }
+
+        $ElementsExport = ElementsExport::where('hash', $hash)->first();
+
+        if($ElementsExport == null)
+        {
+            throw new \Exception('Invalid hash');
+        }
+
+//        $data = $ElementsExport->data;
+
+        $data = [];
+//        $newData = [];
+
+        foreach ($ElementsExport->data as $k => $item)
+        {
+            $array = [];
+
+            if(isset($item->name))
+                $array['Nazwa'] = $item->name;
+
+            if(isset($item->making))
+                $array['Materiał'] = $item->making;
+
+            if(isset($item->thickness) && isset($item->width) && isset($item->length))
+                $array['Wymiary'] = "{$item->thickness} x {$item->width} x {$item->length}";
+
+            if(isset($item->quantity))
+                $array['Sztuk'] = $item->quantity;
+
+            if(isset($item->done_quantity))
+                $array['Wyk. szt.'] = $item->quantity;
+
+
+            $data[] = $array;
+        }
+
+        $data = json_decode(json_encode($data));
+
+        dd($data);
+
+        if($type == 'csv')
+        {
+            $fileName = date('d-m-Y') . '_'.$hash.'.csv';
+
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename=' . $fileName);
+            header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+            header("Pragma: no-cache");
+            header("Expires: 0");
+            header("FileName: " . $fileName);
+
+            $csvExport = new CSVExporter($ElementsExport->data);
+            $csvExport->export();
+        }
+
+        if($type == 'pdf')
+        {
+            $pdf = App::make('dompdf.wrapper');
+
+            $viewData = [
+                'data' => $data
+            ];
+
+            $pdf->loadView('pdf.elements-export', $viewData);
+            return $pdf->stream();
+//            return view('pdf.elements-export')->withData($ElementsExport->data);
+        }
+
+
     }
 }
