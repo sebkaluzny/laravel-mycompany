@@ -22,8 +22,11 @@
                             <input type="text" v-model="element.done_quantity" number>
                         </div>
 
-                        <a href="#" class="ui primary mini labeled icon button" style="float: right;" v-on:click.prevent="moreInfo(element)">
-                            <template v-if="!element.more_info"><i class="angle down icon"></i> wyświetl więcej informacji</template>
+                        <a href="#" class="ui primary mini labeled icon button" style="float: right;"
+                           v-on:click.prevent="moreInfo(element)">
+                            <template v-if="!element.more_info"><i class="angle down icon"></i> wyświetl więcej
+                                informacji
+                            </template>
                             <template v-else><i class="angle up icon"></i> schowaj</template>
                         </a>
                     </td>
@@ -68,7 +71,7 @@
                     <td>{{ task.pivot.quantity }}</td>
                     <td>
                         <div class="ui right labeled input">
-                            <input type="text" v-model="task.price" @change="doCalculate" number>
+                            <input @change="doCalculate" type="text" v-model="task.price" number>
                             <div class="ui label">
                                 zł
                             </div>
@@ -81,37 +84,13 @@
                     <td>{{ element.pricing.price }} zł</td>
                 </tr>
             </template>
-            <!--<template v-for="(name, taskz) in tasks">-->
-            <!--<tr class="active">-->
-            <!--<td colspan="3"><b>{{ name }}</b></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--<td><b>Parametry</b></td>-->
-            <!--<td><b>Ilość</b></td>-->
-            <!--<td><b>Cena za jeden</b></td>-->
-            <!--</tr>-->
-            <!--<tr v-for="task in taskz.tasks">-->
-            <!--<td>-->
-            <!--<div v-for="(index, field) in taskz.fields">{{ field.name }}: <b>{{-->
-            <!--jsonToArr(task.pivot.fields)[index] }}{{ field.unit }}</b></div>-->
-            <!--</td>-->
-            <!--<td>{{ task.pivot.quantity }}</td>-->
-            <!--<td>-->
-            <!--<div class="ui right labeled input">-->
-            <!--<input type="text" v-model="task.price" @change="calculateTasks" number>-->
-            <!--<div class="ui label">-->
-            <!--zł-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-            <!--<td style="text-align: right;">Suma</td>-->
-            <!--<td>{{ taskz.quantity }}</td>-->
-            <!--<td>{{ taskz.price }} zł</td>-->
-            <!--</tr>-->
-            <!--</template>-->
             </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="3" style="text-align: right;">Suma</th>
+                <th>{{ pricingSum }}</th>
+            </tr>
+            </tfoot>
         </table>
     </div>
 
@@ -158,6 +137,8 @@
                 elements: [],
 
                 busy: false,
+
+                pricingSum: 0,
             }
         },
 
@@ -184,6 +165,8 @@
             },
 
             doCalculate: function () {
+                var pricing = 0;
+
                 window._.each(this.elements, function (element, index) {
                     if (element.tasks) {
                         Vue.set(element, 'pricing', {quantity: 0, price: 0});
@@ -194,8 +177,12 @@
                         });
 
                         element.pricing.price = element.pricing.price * element.done_quantity;
+
+                        pricing += element.pricing.price;
                     }
                 });
+
+                this.pricingSum = pricing;
             },
 
             jsonToArr: function (json) {

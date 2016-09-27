@@ -383,6 +383,13 @@ class ElementController extends Controller
 
         $data = $this->element->pickElements($elements, ['tasks', 'files', 'project']);
 
+        foreach($data as $i => $item)
+        {
+            foreach($item->tasks()->get() as $j=> $task)
+            {
+                $data[$i]['tasks'][$j]['price'] = 0;
+            }
+        }
 
 //
 //        $tasks = [];
