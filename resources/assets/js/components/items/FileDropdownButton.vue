@@ -9,19 +9,21 @@
                 Co chcesz zrobić?
             </div>
             <div class="divider"></div>
-            <div class="item">
+            <a href="{{ file.preview_url }}" target="_blank" class="item">
                 <i class="unhide icon"></i>
                 Zobacz
-            </div>
-            <div class="item">
+            </a>
+            <a href="{{ file.download_url }}" target="_blank" class="item">
                 <i class="download icon"></i>
                 Ściągnij
-            </div>
+            </a>
+            <template v-if="watchOnly === false">
             <div class="divider"></div>
             <div class="item" v-on:click.prevent="unattach">
                 <i class="ban icon"></i>
                 Usuń załącznik
             </div>
+            </template>
         </div>
     </div>
 
@@ -34,7 +36,15 @@
 
         components: {FileUnattachModal},
 
-        props: ['file'],
+        props: {
+            file: {
+                default: null,
+            },
+
+            watchOnly: {
+                default: false,
+            }
+        },
 
         ready: function () {
             $('.ui.dropdown')

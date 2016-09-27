@@ -72,9 +72,9 @@ class ElementRepository extends EloquentRepository implements ElementInterface
         return $model;
     }
 
-    public function pickElements(array $elements = [])
+    public function pickElements(array $elements = [], $with = [])
     {
-        return $this->model->whereIn('id', $elements)->get();
+        return $this->model->with($with)->whereIn('id', $elements)->get();
     }
 
 

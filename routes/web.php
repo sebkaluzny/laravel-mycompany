@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('app');
 });
+
+Route::get('file/{id}/download', 'FileController@getDownload');
+Route::get('file/{id}/preview', 'FileController@getPreview');

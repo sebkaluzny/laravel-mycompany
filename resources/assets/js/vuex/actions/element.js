@@ -117,7 +117,7 @@ export const ElementReplicate = ({ dispatch, state }, data) => {
 export const ElementsPricing = ({ dispatch, state }, data) => {
     const promise = new Promise((resolve, reject) => {
         Vue.http.post("api/element/pricing", data).then((response) => {
-            resolve(response.data.tasks)
+            resolve(response.data.elements)
         }, (response) => {
             reject(response.data)
         })

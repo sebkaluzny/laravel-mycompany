@@ -29,6 +29,12 @@ class FileRepository extends EloquentRepository implements FileInterface
         return $files;
     }
 
+    public function get($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+
     public function create(Request $request)
     {
         $file = $request->file('file');

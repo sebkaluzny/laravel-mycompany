@@ -16,7 +16,7 @@ interface ElementInterface
 
     public function update($model, array $input = []);
 
-    public function pickElements(array $elements = []);
+    public function pickElements(array $elements = [], $with = []);
 
     public function attachFile($model, $file);
 

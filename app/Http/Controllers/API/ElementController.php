@@ -381,24 +381,28 @@ class ElementController extends Controller
     {
         $elements = $request->get('elements');
 
-        $data = $this->element->pickElements($elements);
+        $data = $this->element->pickElements($elements, ['tasks', 'files', 'project']);
 
-        $tasks = [];
 
-        foreach($data as $element)
-        {
-            foreach($element->tasks()->get() as $task)
-            {
-                $task['price'] = 1;
-                $tasks[$task->name]['price'] = 0;
-                $tasks[$task->name]['quantity'] = 0;
-                $tasks[$task->name]['fields'] = $task->fields;
-                $tasks[$task->name]['tasks'][] = $task;
-            }
-        }
+//
+//        $tasks = [];
+//
+//        foreach($data as $element)
+//        {
+//            foreach($element->tasks()->get() as $task)
+//            {
+//                $task['price'] = 1;
+//                $tasks[$task->name]['price'] = 0;
+//                $tasks[$task->name]['quantity'] = 0;
+//                $tasks[$task->name]['fields'] = $task->fields;
+//
+//                $tasks[$task->name]['tasks'][] = $task;
+//            }
+//        }
 
         return response()->json([
-            'tasks' => $tasks
+//            'tasks' => $tasks
+            'elements' => $data
         ]);
     }
 }
