@@ -20,9 +20,18 @@
                     </a>
                 </div>
             </div>
-            <div class="thirteen wide column">
+            <div class="thirteen wide column" id="ElementsList">
+
+                <div class="ui secondary  menu">
+                    <div class="right menu">
+                        <a class="ui item" v-on:click.prevent="selectAll">
+                            Zaznacz wszystko
+                        </a>
+                    </div>
+                </div>
+
                 <div class="ui divided items" v-if="indexElements != null">
-                    <div class="item" v-for="element in indexElements">
+                    <div class="item ElementItem" v-for="element in indexElements" v-bind:class="{ 'selected': isSelectedElement(element)}">
                         <a class="ui tiny image">
                             <img src="http://placehold.it/80x80">
                         </a>
@@ -70,7 +79,7 @@
 
     import {ElementIndex} from './../../vuex/actions/element';
     import {ProjectGetAll} from './../../vuex/actions/project';
-    import {isSelectedElement, SelectElement} from './../../vuex/actions/selected-elements';
+    import {isSelectedElement, SelectElement, clearAllSelected} from './../../vuex/actions/selected-elements';
     import {indexElements, indexIsBusy} from './../../vuex/getters/element-getters';
     import {searchProjects} from './../../vuex/getters/project-getters';
 
@@ -88,7 +97,7 @@
             actions: {
                 ElementIndex,
                 ProjectGetAll,
-                isSelectedElement, SelectElement
+                isSelectedElement, SelectElement, clearAllSelected
             }
         },
 
@@ -164,6 +173,14 @@
 
             elementSelectClick: function (element) {
                 this.SelectElement(element);
+            },
+
+            selectAll: function () {
+                this.clearAllSelected();
+
+                window._.each(this.indexElements, element => {
+                    this.SelectElement(element);
+                })
             }
         }
     }
@@ -190,5 +207,15 @@
         font-size: 1em;
         line-height: 1.4285em;
         color: rgba(0,0,0,.87);
+    }
+
+    #ElementsList .ElementItem:last-child,
+    #ElementsList .ElementItem:first-child,
+    #ElementsList .ElementItem
+    {
+        padding: 1em 12px!important;
+    }
+    #ElementsList .ElementItem.selected {
+        background: #f1f1f1;
     }
 </style>

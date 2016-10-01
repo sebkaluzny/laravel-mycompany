@@ -152,6 +152,7 @@
             $('.dropdown')
                     .dropdown()
             ;
+            $('body .modals').remove();
         },
 
 
@@ -205,7 +206,6 @@
 
         route: {
             data: function () {
-                $('body .modals').remove();
 
                 const id = this.$route.params.id;
 

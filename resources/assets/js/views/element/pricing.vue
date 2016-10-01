@@ -19,7 +19,7 @@
                     <td colspan="2">Liczba wykonanych elementów:</td>
                     <td colspan="2">
                         <div class="ui input">
-                            <input type="text" v-model="element.done_quantity" number>
+                            <input @change="doCalculate" type="text" v-model="element.done_quantity" number>
                         </div>
 
                         <a href="#" class="ui primary mini labeled icon button" style="float: right;"
@@ -177,6 +177,7 @@
                         });
 
                         element.pricing.price = element.pricing.price * element.done_quantity;
+                        element.pricing.quantity = element.pricing.quantity * element.done_quantity;
 
                         pricing += element.pricing.price;
                     }

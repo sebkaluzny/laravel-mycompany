@@ -268,10 +268,7 @@ class ElementController extends Controller
             throw new \Exception('Invalid hash');
         }
 
-//        $data = $ElementsExport->data;
-
         $data = [];
-//        $newData = [];
 
         $columns = $ElementsExport->export_data;
 
@@ -323,28 +320,10 @@ class ElementController extends Controller
                 }
             }
 
-//            if(isset($item->name))
-//                $array['Nazwa'] = $item->name;
-//
-//            if(isset($item->making))
-//                $array['Materiał'] = $item->making;
-//
-//            if(isset($item->thickness) && isset($item->width) && isset($item->length))
-//                $array['Wymiary'] = "{$item->thickness} x {$item->width} x {$item->length}";
-//
-//            if(isset($item->quantity))
-//                $array['Sztuk'] = $item->quantity;
-//
-//            if(isset($item->done_quantity))
-//                $array['Wyk. szt.'] = $item->done_quantity;
-
-
             $data[] = $array;
         }
 
         $data = json_decode(json_encode($data));
-
-//        dd($data);
 
         if($type == 'csv')
         {
@@ -391,24 +370,7 @@ class ElementController extends Controller
             }
         }
 
-//
-//        $tasks = [];
-//
-//        foreach($data as $element)
-//        {
-//            foreach($element->tasks()->get() as $task)
-//            {
-//                $task['price'] = 1;
-//                $tasks[$task->name]['price'] = 0;
-//                $tasks[$task->name]['quantity'] = 0;
-//                $tasks[$task->name]['fields'] = $task->fields;
-//
-//                $tasks[$task->name]['tasks'][] = $task;
-//            }
-//        }
-
         return response()->json([
-//            'tasks' => $tasks
             'elements' => $data
         ]);
     }
