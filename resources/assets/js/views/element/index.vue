@@ -56,6 +56,9 @@
                                         <div v-if="element.tasks.length == 0" class="ui tiny label yellow">
                                             Brak określonych zadań
                                         </div>
+                                        <div v-for="task in element.tasks" class="ui tiny label">
+                                            {{ task.name }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="one wide column column-centered-content">
