@@ -50,6 +50,9 @@
                                         <div class="ui tiny label" :class="{'grey': element.quantity > 0 }">
                                             Na stanie: {{ element.quantity }}
                                         </div>
+                                        <div class="ui tiny label" :class="{'grey': element.done_quantity > 0 }">
+                                            Ukończonych: {{ element.done_quantity }}
+                                        </div>
                                         <div v-if="element.quantity > 0" class="ui tiny label" :class="{'red': element.done_quantity == 0 }">
                                             Wykonanych: {{ element.done_quantity }}
                                         </div>
