@@ -31,7 +31,8 @@
                 </div>
 
                 <div class="ui divided items" v-if="indexElements != null">
-                    <div class="item ElementItem" v-for="element in indexElements" v-bind:class="{ 'selected': isSelectedElement(element)}">
+                    <div class="item ElementItem" v-for="element in indexElements"
+                         v-bind:class="{ 'selected': isSelectedElement(element)}">
                         <a class="ui tiny image">
                             <img src="http://placehold.it/80x80">
                         </a>
@@ -40,11 +41,15 @@
                                 <div class="fifteen wide column">
                                     <a class="header" v-link="{ name: 'element-show', params: { id: element.id }}">{{
                                         element.name }}</a>
+                                    <span class="created_date">
+                                        {{ element.created_at }}
+                                    </span>
                                     <div class="description">
                                         {{ element.thickness }} x {{ element.width }} x {{ element.length }}
                                         <span v-if="element.project">
-                                    | Projekt: {{ element.project.name }}
-                                </span>
+                                            | Projekt: {{ element.project.name }}
+                                        </span>
+                                        <span> | Materiał: {{ element.making }} </span>
                                     </div>
                                     <div class="extra">
                                         <div class="ui tiny label" :class="{'grey': element.quantity > 0 }">
@@ -53,7 +58,8 @@
                                         <div class="ui tiny label" :class="{'grey': element.done_quantity > 0 }">
                                             Ukończonych: {{ element.done_quantity }}
                                         </div>
-                                        <div v-if="element.quantity > 0" class="ui tiny label" :class="{'red': element.done_quantity == 0 }">
+                                        <div v-if="element.quantity > 0" class="ui tiny label"
+                                             :class="{'red': element.done_quantity == 0 }">
                                             Wykonanych: {{ element.done_quantity }}
                                         </div>
                                         <div v-if="element.tasks.length == 0" class="ui tiny label yellow">
@@ -65,8 +71,10 @@
                                     </div>
                                 </div>
                                 <div class="one wide column column-centered-content">
-                                    <div class="ui checkbox" v-on:click.prevent="elementSelectClick(element)" v-bind:class="{ 'checked': isSelectedElement(element)}">
-                                        <input type="checkbox" tabindex="0" class="hidden" v-bind:checked="isSelectedElement(element)">
+                                    <div class="ui checkbox" v-on:click.prevent="elementSelectClick(element)"
+                                         v-bind:class="{ 'checked': isSelectedElement(element)}">
+                                        <input type="checkbox" tabindex="0" class="hidden"
+                                               v-bind:checked="isSelectedElement(element)">
                                         <label></label>
                                     </div>
                                 </div>
@@ -194,17 +202,17 @@
 
 <style>
     .column-centered-content {
-        display: flex!important;
+        display: flex !important;
         align-items: center;
         justify-content: center;
     }
 
     #elementShow .header {
         font-size: 1.28571429em;
-        color: rgba(0,0,0,.85);
+        color: rgba(0, 0, 0, .85);
         display: inline-block;
         margin: -.21425em 0 0;
-        font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+        font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
         font-weight: 700;
     }
 
@@ -212,16 +220,20 @@
         margin-top: .6em;
         font-size: 1em;
         line-height: 1.4285em;
-        color: rgba(0,0,0,.87);
+        color: rgba(0, 0, 0, .87);
     }
 
     #ElementsList .ElementItem:last-child,
     #ElementsList .ElementItem:first-child,
-    #ElementsList .ElementItem
-    {
-        padding: 1em 12px!important;
+    #ElementsList .ElementItem {
+        padding: 1em 12px !important;
     }
+
     #ElementsList .ElementItem.selected {
         background: #f1f1f1;
+    }
+
+    .created_date {
+        color: #8b8b8b;
     }
 </style>
