@@ -6,7 +6,7 @@
             <tr>
                 <td rowspan="2">
                     {{--<h1>MyCompany</h1>--}}
-                    <img src="{{ asset('images/' . env('LOGO_FILE')) }}" alt="">
+                    <img src="{{ env('LOGO_FILE') }}" alt="">
                 </td>
                 <td style="text-align: right;">Wygenerowano: {{ date('d-m-Y, H:i') }}</td>
             </tr>
