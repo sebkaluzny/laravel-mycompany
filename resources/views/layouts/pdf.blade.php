@@ -45,6 +45,14 @@
             border-bottom: 1px solid #dbdbdb;
             margin-bottom: 25px;
         }
+        .table-bordered,
+        .table-bordered th,
+        .table-bordered td {
+            border-color: #656565!important;
+        }
+        .table-striped>tbody>tr:nth-of-type(odd) {
+            background-color: #ececec;
+        }
     </style>
 </head>
 <body>

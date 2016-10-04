@@ -4,7 +4,10 @@
     <div class="header">
         <table style="width: 100%;">
             <tr>
-                <td rowspan="2"><h1>MyCompany</h1></td>
+                <td rowspan="2">
+                    {{--<h1>MyCompany</h1>--}}
+                    <img src="{{ asset('images/' . env('LOGO_FILE')) }}" alt="">
+                </td>
                 <td style="text-align: right;">Wygenerowano: {{ date('d-m-Y, H:i') }}</td>
             </tr>
             <tr>
