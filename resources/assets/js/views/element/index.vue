@@ -234,6 +234,8 @@
     }
 
     .created_date {
-        color: #8b8b8b;
+        color: #c5c5c5;
+        float: right;
+        font-size: 11px;
     }
 </style>
