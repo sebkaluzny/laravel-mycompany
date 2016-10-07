@@ -87,11 +87,18 @@
             </tbody>
             <tfoot>
             <tr>
+                <th colspan="3" style="text-align: right;">Liczba elementów</th>
+                <th>{{ elementsSum }}</th>
+            </tr>
+            <tr>
                 <th colspan="3" style="text-align: right;">Suma</th>
                 <th>{{ pricingSum }}</th>
             </tr>
             </tfoot>
         </table>
+
+        <a href="#" class="ui button">Zapisz wycenę</a>
+
     </div>
 
     <page-loader :busy.sync="busy"></page-loader>
@@ -139,6 +146,7 @@
                 busy: false,
 
                 pricingSum: 0,
+                elementsSum: 0,
             }
         },
 
@@ -166,6 +174,7 @@
 
             doCalculate: function () {
                 var pricing = 0;
+                var elements = 0;
 
                 window._.each(this.elements, function (element, index) {
                     if (element.tasks) {
@@ -180,9 +189,11 @@
                         element.pricing.quantity = element.pricing.quantity * element.done_quantity;
 
                         pricing += element.pricing.price;
+                        elements += element.done_quantity;
                     }
                 });
 
+                this.elementsSum = elements;
                 this.pricingSum = pricing;
             },
 
