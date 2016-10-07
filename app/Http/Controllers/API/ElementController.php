@@ -349,7 +349,7 @@ class ElementController extends Controller
             ];
 
             $pdf->loadView('pdf.elements-export', $viewData);
-            return $pdf->stream();
+            return $pdf->download();
 //            return view('pdf.elements-export')->withData($data);
         }
 
