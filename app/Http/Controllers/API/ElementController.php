@@ -263,7 +263,7 @@ class ElementController extends Controller
 
         $ElementsExport = ElementsExport::where('hash', $hash)->first();
 
-        if($ElementsExport == null)
+        if ($ElementsExport == null)
         {
             throw new \Exception('Invalid hash');
         }
@@ -272,51 +272,75 @@ class ElementController extends Controller
 
         $columns = $ElementsExport->export_data;
 
+        $countDoneQuantity = 0;
+
         foreach ($ElementsExport->data as $k => $item)
         {
             $array = [];
 
-            foreach($columns as $column)
+            if (isset($columns['done_quantity']))
             {
-                if($column == 'position')
+                $countDoneQuantity += (int) $item->done_quantity;
+            }
+
+            foreach ($columns as $column)
+            {
+                if ($column == 'position')
                 {
                     $array['Nazwa'] = $item->name;
-                }
-                else if($column == 'making')
+                } else
                 {
-                    $array['Materiał'] = isset($item->making) ? $item->making : '-' ;
-                }
-                else if($column == 'size')
-                {
-                    $array['Wymiary'] = isset($item->thickness) ? "{$item->thickness} x {$item->width} x {$item->length}" : '-' ;
-                }
-                else if($column == 'quantity')
-                {
-                    $array['Sztuk'] = (int) $item->quantity;
-                }
-                else if($column == 'done_quantity')
-                {
-                    $array['Wyk. szt.'] = (int) $item->done_quantity;
-                }
-                else if($column == 'tasks')
-                {
-                    $tasks = [];
-
-                    foreach($item->tasks as $task)
+                    if ($column == 'making')
                     {
-                        $fieldsValue = json_decode($task->pivot->fields);
-
-                        $fields = [];
-
-                        foreach($task->fields as $k => $field)
+                        $array['Materiał'] = isset($item->making) ? $item->making : '-';
+                    } else
+                    {
+                        if ($column == 'note')
                         {
-                            $fields[] = "{$field->name}: {$fieldsValue[$k]}{$field->unit}";
+                            $array['Notka'] = $item->note;
+                        } else
+                        {
+                            if ($column == 'size')
+                            {
+                                $array['Wymiary'] = isset($item->thickness) ? "{$item->thickness} x {$item->width} x {$item->length}" : '-';
+                            } else
+                            {
+                                if ($column == 'quantity')
+                                {
+                                    $array['S'] = (int) $item->quantity;
+                                } else
+                                {
+                                    if ($column == 'done_quantity')
+                                    {
+                                        $array['W'] = (int) $item->done_quantity;
+                                    } else
+                                    {
+                                        if ($column == 'tasks')
+                                        {
+                                            $tasks = [];
+
+                                            foreach ($item->tasks as $task)
+                                            {
+                                                $fieldsValue = json_decode($task->pivot->fields);
+
+                                                $fields = [];
+
+                                                foreach ($task->fields as $k => $field)
+                                                {
+                                                    $fields[] = "{$field->name}: {$fieldsValue[$k]}{$field->unit}";
+                                                }
+
+                                                $tasks[] = "{$task->name} x{$task->pivot->quantity} " . implode(',',
+                                                        $fields) . "; ";
+                                            }
+
+                                            $array['Zadania'] = count($item->tasks) ? $tasks : '-';
+                                        }
+                                    }
+                                }
+                            }
                         }
-
-                        $tasks[] = "{$task->name} x{$task->pivot->quantity} " . implode(',', $fields) . "; ";
                     }
-
-                    $array['Zadania'] = count($item->tasks) ? $tasks : '-';
                 }
             }
 
@@ -325,9 +349,9 @@ class ElementController extends Controller
 
         $data = json_decode(json_encode($data));
 
-        if($type == 'csv')
+        if ($type == 'csv')
         {
-            $fileName = date('d-m-Y') . '_'.$hash.'.csv';
+            $fileName = date('d-m-Y') . '_' . $hash . '.csv';
 
             header('Content-Type: text/csv; charset=utf-8');
             header('Content-Disposition: attachment; filename=' . $fileName);
@@ -340,15 +364,17 @@ class ElementController extends Controller
             $csvExport->export();
         }
 
-        if($type == 'pdf')
+        if ($type == 'pdf')
         {
             $pdf = App::make('dompdf.wrapper');
 
             $viewData = [
-                'data' => $data
+                'data'              => $data,
+                'countDoneQuantity' => $countDoneQuantity,
             ];
 
             $pdf->loadView('pdf.elements-export', $viewData);
+
             return $pdf->download('export-' . date('d-m-Y-H-i-s') . '.pdf');
 //            return view('pdf.elements-export')->withData($data);
         }
@@ -362,9 +388,9 @@ class ElementController extends Controller
 
         $data = $this->element->pickElements($elements, ['tasks', 'files', 'project']);
 
-        foreach($data as $i => $item)
+        foreach ($data as $i => $item)
         {
-            foreach($item->tasks()->get() as $j=> $task)
+            foreach ($item->tasks()->get() as $j => $task)
             {
                 $data[$i]['tasks'][$j]['price'] = 0;
             }

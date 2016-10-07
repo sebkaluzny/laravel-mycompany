@@ -4,7 +4,7 @@
     <div class="header">
         <table style="width: 100%;">
             <tr>
-                <td rowspan="2">
+                <td rowspan="3">
                     {{--<h1>MyCompany</h1>--}}
                     <img src="{{ env('LOGO_FILE') }}" alt="">
                 </td>
@@ -12,6 +12,9 @@
             </tr>
             <tr>
                 <td style="text-align: right;"><b>Liczba elementów: {{ count($data) }}</b></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><b>Wykonanych sztuk: {{ $countDoneQuantity }}</b></td>
             </tr>
         </table>
     </div>

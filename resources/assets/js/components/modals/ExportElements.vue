@@ -12,6 +12,7 @@
                     <select multiple="" class="ui dropdown" id="multi-select" v-model="form.exportData">
                         <option value="">Wybierz dane</option>
                         <option value="position">Pozycja</option>
+                        <option value="note">Notatka</option>
                         <option value="making">Materiał</option>
                         <option value="size">Wymiary</option>
                         <option value="quantity">Ilość sztuk</option>
