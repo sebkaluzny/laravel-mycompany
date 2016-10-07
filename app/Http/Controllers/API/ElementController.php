@@ -361,7 +361,8 @@ class ElementController extends Controller
             ];
 
             $pdf->loadView('pdf.elements-export', $viewData);
-            $pdf->save('export-' . date('d-m-Y-H-i-s') . '.pdf');
+//            return $pdf->download('export-' . date('d-m-Y-H-i-s') . '.pdf');
+            return $pdf->stream();
 //            return view('pdf.elements-export')->withData($data);
         }
 
