@@ -258,6 +258,8 @@ class ElementController extends Controller
 
     public function getExport($hash, $type, Request $request)
     {
+        $sortBy = $request->get('sortBy', false);
+
         if (!in_array($type, $this->types))
         {
             throw new \Exception('Invalid type');
@@ -276,7 +278,16 @@ class ElementController extends Controller
 
         $countDoneQuantity = 0;
 
-        foreach ($ElementsExport->data as $k => $item)
+        if($sortBy)
+        {
+            $ElementsDataCollection = collect($ElementsExport->data)->sortBy($sortBy);
+        }
+        else
+        {
+            $ElementsDataCollection = $ElementsExport->data;
+        }
+
+        foreach ($ElementsDataCollection as $k => $item)
         {
             $array = [];
 
