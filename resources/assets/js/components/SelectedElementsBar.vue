@@ -102,7 +102,7 @@
             },
 
             pricing: function () {
-                this.$route.router.go("/element/pricing");
+                this.$route.router.go("/pricing/create");
             },
         }
     }

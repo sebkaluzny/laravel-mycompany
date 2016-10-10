@@ -28,7 +28,16 @@
 
         body {
             font-family: 'Open Sanz';
-            font-size: 12px;
+            font-size: 10px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        @page { margin: 25px; }
+
+        hr {
+            border-color: #000!important;
         }
 
         .column-centered-content {
@@ -41,14 +50,17 @@
             margin: 0;
         }
         .header {
-            padding: 0 0 30px 0;
-            border-bottom: 1px solid #dbdbdb;
-            margin-bottom: 25px;
+            margin-top: 0;
+            padding: 0 0 15px 0;
+            border-bottom: 1px solid #222222;
+            margin-bottom: 15px;
         }
         .table-bordered,
         .table-bordered th,
         .table-bordered td {
-            border-color: #656565!important;
+            border-color: #000!important;
+            padding: 2px 4px!important;
+            vertical-align: middle!important;
         }
         .table-striped>tbody>tr:nth-of-type(odd) {
             background-color: #ececec;

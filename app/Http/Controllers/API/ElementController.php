@@ -361,9 +361,10 @@ class ElementController extends Controller
             ];
 
             $pdf->loadView('pdf.elements-export', $viewData);
+            $pdf->setPaper('a4', 'landscape');
 //            return $pdf->download('export-' . date('d-m-Y-H-i-s') . '.pdf');
             return $pdf->stream();
-//            return view('pdf.elements-export')->withData($data);
+//            return view('pdf.elements-export')->withData($data)->with('countDoneQuantity', $countDoneQuantity);
         }
 
 

@@ -160,3 +160,29 @@ export const setElementShow = ({ dispatch, state }, id) => {
 export const setElementShowModel = ({ dispatch, state }, model) => {
     dispatch('SET_ELEMENT_SHOW_MODEL', model)
 }
+
+
+
+
+
+export const ElementsPricingCreate = ({ dispatch, state }, data) => {
+    const promise = new Promise((resolve, reject) => {
+        Vue.http.post("api/element-pricing", data).then((response) => {
+            resolve(response.data)
+        }, (response) => {
+            reject(response.data)
+        })
+    })
+    return promise
+}
+
+export const ElementsPricingGet = ({ dispatch, state }, id) => {
+    const promise = new Promise((resolve, reject) => {
+        Vue.http.get("api/element-pricing/" + id).then((response) => {
+            resolve(response.data.pricing)
+        }, (response) => {
+            reject(response.data)
+        })
+    })
+    return promise
+}

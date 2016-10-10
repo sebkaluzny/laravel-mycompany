@@ -188,8 +188,8 @@
                         element.pricing.price = element.pricing.price * element.done_quantity;
                         element.pricing.quantity = element.pricing.quantity * element.done_quantity;
 
-                        pricing += element.pricing.price;
-                        elements += element.done_quantity;
+                        pricing += parseInt(element.pricing.price);
+                        elements += parseInt(element.done_quantity);
                     }
                 });
 

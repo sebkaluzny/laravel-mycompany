@@ -32,6 +32,7 @@ Route::group(['namespace' => 'API'], function() {
     Route::post('element/pricing', 'ElementController@pricing');
     Route::get('element/export/{hash}/{type}', 'ElementController@getExport');
     Route::resource('element', 'ElementController');
+    Route::resource('element-pricing', 'ElementPricingController');
 
     Route::resource('element-task', 'ElementTaskController');
 

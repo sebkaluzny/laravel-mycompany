@@ -15,6 +15,10 @@ import ElementTaskCreate from './views/element-task/create.vue';
 import ElementTaskShow from './views/element-task/show.vue';
 import ElementTaskEdit from './views/element-task/edit.vue';
 
+import PricingCreate from './views/pricing/create.vue';
+import PricingShow from './views/pricing/show.vue';
+import PricingEdit from './views/pricing/edit.vue';
+
 
 // Create a router instance.
 // You can pass in additional options here, but let's
@@ -61,10 +65,6 @@ router.map({
         component: ElementCreate
     },
 
-    '/element/pricing': {
-        component: ElementPricing
-    },
-
     '/element/index/project/:project': {
         name: 'element-index-filter',
         component: ElementIndex
@@ -73,6 +73,23 @@ router.map({
     '/element/:id' : {
         name: 'element-show',
         component: ElementShow,
+    },
+
+    '/element/pricing': {
+        component: ElementPricing
+    },
+
+    '/pricing/create': {
+        component: PricingCreate
+    },
+
+    '/pricing/:id/edit': {
+        name: 'pricing-edit',
+        component: PricingEdit
+    },
+
+    '/pricing/:id': {
+        component: PricingShow
     },
 
 

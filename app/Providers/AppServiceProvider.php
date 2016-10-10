@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Repositories\Element\ElementInterface;
+use App\Repositories\Element\ElementPricingInterface;
+use App\Repositories\Element\ElementPricingRepository;
 use App\Repositories\Element\ElementRepository;
 use App\Repositories\Element\ElementTaskInterface;
 use App\Repositories\Element\ElementTaskRepository;
@@ -38,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FileInterface::class, FileRepository::class);
         $this->app->bind(ElementTaskInterface::class, ElementTaskRepository::class);
         $this->app->bind(ProjectInterface::class, ProjectRepository::class);
+        $this->app->bind(ElementPricingInterface::class, ElementPricingRepository::class);
     }
 }
