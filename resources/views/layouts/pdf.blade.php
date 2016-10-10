@@ -63,7 +63,7 @@
             vertical-align: middle!important;
         }
         .table-striped>tbody>tr:nth-of-type(odd) {
-            background-color: #dedede;
+            background-color: #cccccc;
         }
         .footer {
             width: 100%;

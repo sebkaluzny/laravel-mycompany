@@ -24,12 +24,12 @@
             <tr>
                 <td rowspan="3">
                     {{--<h1>MyCompany</h1>--}}
-                    <img src="{{ env('LOGO_FILE') }}" alt="">
+                    <img src="{{ asset(env('LOGO_FILE')) }}" alt="" style="width: 100px;">
                 </td>
                 <td style="text-align: right;">Wygenerowano: {{ date('d-m-Y, H:i') }}</td>
             </tr>
             <tr>
-                <td style="text-align: right;"><b>Liczba elementów: {{ count($data) }}</b></td>
+                <td style="text-align: right;"><b>Liczba pozycji: {{ count($data) }}</b></td>
             </tr>
             <tr>
                 <td style="text-align: right;"><b>Wykonanych sztuk: {{ $countDoneQuantity }}</b></td>
