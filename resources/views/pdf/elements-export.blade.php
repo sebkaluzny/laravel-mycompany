@@ -24,7 +24,7 @@
             <tr>
                 <td rowspan="3">
                     {{--<h1>MyCompany</h1>--}}
-                    <img src="{{ asset(env('LOGO_FILE')) }}" alt="" style="width: 100px;">
+                    <img src="{{ env('LOGO_FILE') }}" alt="" style="width: 100px;">
                 </td>
                 <td style="text-align: right;">Wygenerowano: {{ date('d-m-Y, H:i') }}</td>
             </tr>
