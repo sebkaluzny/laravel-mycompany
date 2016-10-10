@@ -16,7 +16,7 @@ class CreateElementsPricingTable extends Migration
         Schema::create('elements_pricing', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->json('data');
+            $table->longText('data');
 
             $table->timestamps();
         });

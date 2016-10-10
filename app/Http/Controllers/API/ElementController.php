@@ -6,6 +6,8 @@ use App\Lib\ElementsExporter\CSVExporter;
 use App\Models\ElementsExport;
 use App\Repositories\Element\ElementInterface;
 use Barryvdh\DomPDF\PDF;
+use Dompdf\FontMetrics;
+use FontLib\AdobeFontMetrics;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -254,7 +256,7 @@ class ElementController extends Controller
         ]);
     }
 
-    public function getExport($hash, $type)
+    public function getExport($hash, $type, Request $request)
     {
         if (!in_array($type, $this->types))
         {
@@ -353,6 +355,8 @@ class ElementController extends Controller
 
         if($type == 'pdf')
         {
+            $landscape = $request->get('landscape', false);
+
             $pdf = App::make('dompdf.wrapper');
 
             $viewData = [
@@ -361,12 +365,13 @@ class ElementController extends Controller
             ];
 
             $pdf->loadView('pdf.elements-export', $viewData);
-            $pdf->setPaper('a4', 'landscape');
+
+            if($landscape)
+                $pdf->setPaper('a4', 'landscape');
 //            return $pdf->download('export-' . date('d-m-Y-H-i-s') . '.pdf');
             return $pdf->stream();
 //            return view('pdf.elements-export')->withData($data)->with('countDoneQuantity', $countDoneQuantity);
         }
-
 
     }
 

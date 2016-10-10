@@ -34,7 +34,7 @@
             padding: 0;
         }
 
-        @page { margin: 25px; }
+        @page { margin: 30px; }
 
         hr {
             border-color: #000!important;
@@ -50,7 +50,7 @@
             margin: 0;
         }
         .header {
-            margin-top: 0;
+            margin-top: 0px;
             padding: 0 0 15px 0;
             border-bottom: 1px solid #222222;
             margin-bottom: 15px;
@@ -63,8 +63,24 @@
             vertical-align: middle!important;
         }
         .table-striped>tbody>tr:nth-of-type(odd) {
-            background-color: #ececec;
+            background-color: #dedede;
         }
+        .footer {
+            width: 100%;
+            text-align: center;
+            position: fixed;
+        }
+        .footer {
+            bottom: 0px;
+        }
+        .pagenum:before {
+            content: counter(page);
+        }
+        .pagetotal:before {
+            content: counter(pages);
+        }
+
+        @yield('style')
     </style>
 </head>
 <body>
