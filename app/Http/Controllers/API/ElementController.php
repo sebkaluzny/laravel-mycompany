@@ -376,6 +376,7 @@ class ElementController extends Controller
             ];
 
             $pdf->loadView('pdf.elements-export', $viewData);
+//            $pdf->loadView('pdf.elements-export-divs', $viewData);
 
             if($landscape)
                 $pdf->setPaper('a4', 'landscape');
