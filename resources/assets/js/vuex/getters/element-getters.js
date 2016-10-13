@@ -6,6 +6,10 @@ export const indexIsBusy = state => {
     return state.element.index.busy
 }
 
+export const indexPagination = state => {
+    return state.element.index.pagination
+}
+
 
 export const showModel = state => {
     return state.element.show.model

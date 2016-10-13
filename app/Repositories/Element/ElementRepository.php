@@ -36,7 +36,7 @@ class ElementRepository extends EloquentRepository implements ElementInterface
                 $query->where('project_id', (int) $input['project_id']);
             }
 
-            return $query->orderBy('created_at', 'desc')->get();
+            return $query->orderBy('created_at', 'desc')->paginate(40);
         }
     }
 

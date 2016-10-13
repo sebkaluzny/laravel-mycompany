@@ -83,6 +83,9 @@
                     </div>
                 </div>
 
+                <pagination v-if="indexPagination" :pagination="indexPagination" :callback="loadPagination"
+                            :offset="3"></pagination>
+
                 <page-loader :busy.sync="indexIsBusy"></page-loader>
             </div>
         </div>
@@ -94,7 +97,7 @@
     import {ElementIndex} from './../../vuex/actions/element';
     import {ProjectGetAll} from './../../vuex/actions/project';
     import {isSelectedElement, SelectElement, clearAllSelected} from './../../vuex/actions/selected-elements';
-    import {indexElements, indexIsBusy} from './../../vuex/getters/element-getters';
+    import {indexElements, indexIsBusy, indexPagination} from './../../vuex/getters/element-getters';
     import {searchProjects} from './../../vuex/getters/project-getters';
 
     import PageLoader from './../../components/PageLoader.vue';
@@ -106,7 +109,8 @@
         vuex: {
             getters: {
                 indexElements,
-                indexIsBusy
+                indexIsBusy,
+                indexPagination
             },
             actions: {
                 ElementIndex,
@@ -133,22 +137,7 @@
         route: {
             data: function () {
                 this.loadData();
-
-                var data = {};
-
-                const project_id = this.$route.params.project;
-
-                if (project_id != null) {
-                    data.project_id = project_id;
-//                    data.append('project_id', project_id);
-                }
-
-                this.ElementIndex(data).then(() => {
-//                    $('.ui.checkbox')
-//                            .checkbox()
-//                    ;
-                });
-
+                this.loadIndex(0);
             }
         },
 
@@ -169,6 +158,21 @@
          * Component methods
          */
         methods: {
+
+            loadIndex: function (page = 0) {
+                var data = {};
+
+                const project_id = this.$route.params.project;
+
+                if (project_id != null) {
+                    data.project_id = project_id;
+                }
+
+                data.page = page;
+
+                this.ElementIndex(data).then(() => {});
+            },
+
             loadData: function () {
                 this.ProjectGetAll().then(projects => {
                     this.projects = projects;
@@ -195,6 +199,10 @@
                 window._.each(this.indexElements, element => {
                     this.SelectElement(element);
                 })
+            },
+
+            loadPagination: function () {
+                this.loadIndex(this.indexPagination.current_page);
             }
         }
     }

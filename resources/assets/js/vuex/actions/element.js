@@ -129,8 +129,18 @@ export const ElementIndex = ({ dispatch, state }, data = {}) => {
     const promise = new Promise((resolve, reject) => {
         dispatch('SET_INDEX_ELEMENTS_BUSY', true);
         Vue.http.get("api/element?" + $.param(data), null).then((response) => {
-            dispatch('SET_INDEX_ELEMENTS', response.data.elements)
-            resolve(response.data.elements)
+            if(response.data.elements.data != null)
+            {
+                dispatch('SET_INDEX_PAGINATION', response.data.elements);
+                dispatch('SET_INDEX_ELEMENTS', response.data.elements.data);
+                resolve(response.data.elements.data);
+            }
+            else {
+                dispatch('SET_INDEX_PAGINATION', false);
+                dispatch('SET_INDEX_ELEMENTS', response.data.elements);
+                resolve(response.data.elements)
+            }
+
             dispatch('SET_INDEX_ELEMENTS_BUSY', false);
         }, (response) => {
             reject(response.data)

@@ -2,6 +2,7 @@ const state = {
     index: {
         elements: [],
         busy: false,
+        pagination: false,
     },
 
     show: {
@@ -17,6 +18,10 @@ const mutations = {
 
     SET_INDEX_ELEMENTS_BUSY(state, busy) {
         state.index.busy = busy;
+    },
+
+    SET_INDEX_PAGINATION(state, pagination) {
+        state.index.pagination = pagination;
     },
 
     /*

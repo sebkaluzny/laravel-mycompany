@@ -27,6 +27,7 @@ Vue.component('export-elements-modal', require('./components/modals/ExportElemen
 Vue.component('element-form', require('./components/form/Element.vue'));
 Vue.component('element-replicate-modal', require('./components/modals/ElementReplicate.vue'));
 
+Vue.component('pagination', require('./utils/pagination.js'));
 
 // const app = new Vue({
 //     el: 'body'
