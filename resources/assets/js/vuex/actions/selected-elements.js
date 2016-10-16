@@ -1,4 +1,17 @@
-export const SelectElement = ({dispatch, state}, element) => {
+export const SelectElement = ({dispatch, state}, e, element) => {
+    // if(!state.selectedElements.lastChecked) {
+    //     state.selectedElements.lastChecked = element;
+    //     return;
+    // }
+    //
+    // if(e != null && e.shiftKey) {
+    //     var start = $chkboxes.index(this);
+    //     var end = $chkboxes.index(lastChecked);
+    //
+    //     $chkboxes.slice(Math.min(start,end), Math.max(start,end)+ 1).prop('checked', lastChecked.checked);
+    //
+    // }
+
     if (isSelectedElement({dispatch, state}, element)) {
         state.selectedElements.elements.$remove(element.id);
     }

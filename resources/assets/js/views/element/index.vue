@@ -189,15 +189,15 @@
                 }
             },
 
-            elementSelectClick: function (element) {
-                this.SelectElement(element);
+            elementSelectClick: function (event, element) {
+                this.SelectElement(event, element);
             },
 
             selectAll: function () {
-                this.clearAllSelected();
+//                this.clearAllSelected();
 
                 window._.each(this.indexElements, element => {
-                    this.SelectElement(element);
+                    this.SelectElement(null, element);
                 })
             },
 

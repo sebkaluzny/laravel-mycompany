@@ -1,5 +1,6 @@
 const state = {
     elements: [],
+    lastChecked: null,
 };
 
 const mutations = {
