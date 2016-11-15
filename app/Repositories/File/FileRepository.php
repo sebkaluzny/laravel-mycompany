@@ -45,13 +45,20 @@ class FileRepository extends EloquentRepository implements FileInterface
             return false;
         }
 
+        $name = $request->get('name', false);
+
+        if(!$name)
+        {
+            $name = $file->getClientOriginalName();
+        }
+
         $path = $file->store('files');
 
         $m = new $this->model();
 
         $m->path = $path;
 
-        $m->name = $request->get('name');
+        $m->name = $name;
 
         $m->type = $file->getClientMimeType();
 
