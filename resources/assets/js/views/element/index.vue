@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 <div class="one wide column column-centered-content">
-                                    <div class="ui checkbox" v-on:click.prevent="elementSelectClick(element)"
+                                    <div class="ui checkbox" v-on:click.prevent="elementSelectClick(null, element)"
                                          v-bind:class="{ 'checked': isSelectedElement(element)}">
                                         <input type="checkbox" tabindex="0" class="hidden"
                                                v-bind:checked="isSelectedElement(element)">
@@ -190,6 +190,9 @@
             },
 
             elementSelectClick: function (event, element) {
+
+//                console.log(element);
+
                 this.SelectElement(event, element);
             },
 
