@@ -13,14 +13,18 @@ class CSVExporter extends ElementExporter
 
 
         fputcsv($out, array_keys((array)$this->elements[0]));
-//        fputcsv($out, $this->getColumnNames());
 
         foreach($this->elements as $k => $element)
         {
             $elData = (array) $element;
 
+            $tasks = is_array($elData['Zadania']) ? implode("\n", $elData['Zadania']) : $elData['Zadania'];
+
+            $elData['Zadania'] = $tasks;
+
             // Remove 'id' param from file
-            unset($elData['id']);
+            if(isset($elData['id']))
+                unset($elData['id']);
 
             fputcsv($out, $elData);
         }
