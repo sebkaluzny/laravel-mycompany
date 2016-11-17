@@ -360,7 +360,7 @@ class ElementController extends Controller
             header("Expires: 0");
             header("FileName: " . $fileName);
 
-            $csvExport = new CSVExporter($ElementsExport->data);
+            $csvExport = new CSVExporter($data);
             $csvExport->export();
         }
 

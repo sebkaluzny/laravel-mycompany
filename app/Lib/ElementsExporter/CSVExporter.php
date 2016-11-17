@@ -11,7 +11,9 @@ class CSVExporter extends ElementExporter
     {
         $out = fopen('php://output', 'w');
 
-        fputcsv($out, $this->getColumnNames());
+
+        fputcsv($out, array_keys((array)$this->elements[0]));
+//        fputcsv($out, $this->getColumnNames());
 
         foreach($this->elements as $k => $element)
         {
