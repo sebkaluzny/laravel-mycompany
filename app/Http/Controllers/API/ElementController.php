@@ -258,7 +258,7 @@ class ElementController extends Controller
 
     public function getExport($hash, $type, Request $request)
     {
-        $sortBy = $request->get('sortBy', false);
+        $sortBy = $request->get('sortBy', 'name');
 
         if (!in_array($type, $this->types))
         {
@@ -366,7 +366,7 @@ class ElementController extends Controller
 
         if($type == 'pdf')
         {
-            $landscape = $request->get('landscape', false);
+            $landscape = $request->get('landscape', true);
 
             $pdf = App::make('dompdf.wrapper');
 
