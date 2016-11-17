@@ -36,6 +36,10 @@ class FileController extends Controller
     {
         $file = $this->getFile($id);
 
+        if (strpos($file->name, '.') !== false) {
+            return response()->download(storage_path('app/' . $file->path), $file->name);
+        }
+
         return response()->download(storage_path('app/' . $file->path));
     }
 
