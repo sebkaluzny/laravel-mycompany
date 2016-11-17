@@ -36,11 +36,14 @@ class FileController extends Controller
     {
         $file = $this->getFile($id);
 
-        if (strpos($file->name, '.') !== false) {
+        $fileExtension = explode('.', $file->path);
+        $fileExtension = $fileExtension[count($fileExtension) - 1];
+
+        if (strpos($file->name, $fileExtension) !== false) {
             return response()->download(storage_path('app/' . $file->path), $file->name);
         }
 
-        return response()->download(storage_path('app/' . $file->path));
+        return response()->download(storage_path('app/' . $file->path), $file->name . '.' . $fileExtension);
     }
 
     public function getPreview($id)
