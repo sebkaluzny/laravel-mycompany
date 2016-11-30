@@ -31,8 +31,8 @@
                             <img src="{{ env('LOGO_FILE') }}" alt="" style="width: 100px;">
                         </td>
                         <td style="text-align: right;">
-                            <h2 style="margin-bottom: 0; font-family: 'Open Sans'; ">{{ mb_convert_encoding(env('COMPANY_NAME'), 'UTF-8') }}</h2>
-                            <h3 style="margin-top: 5px; font-family: 'Open Sans';">Wycena z dnia {{ $pricing->updated_at->toDateString() }}</h3>
+                            <h2 style="margin-bottom: 0; font-family: 'open sanz'; ">{{ mb_convert_encoding(env('COMPANY_NAME'), 'UTF-8') }}</h2>
+                            <h3 style="margin-top: 5px; font-family: 'open sanz';">Wycena z dnia {{ $pricing->updated_at->toDateString() }}</h3>
                         </td>
                     </tr>
                 </table>

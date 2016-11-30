@@ -279,7 +279,7 @@ class ElementPricingController extends Controller
                     {
                         if(isset($task->price))
                         {
-                            $cena += (int) $task->price;
+                            $cena += (int) ($task->price * $task->pivot->quantity) * $item->done_quantity;
                         }
                     }
 
