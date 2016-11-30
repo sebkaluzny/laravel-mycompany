@@ -8,6 +8,7 @@ import elementTask from "./modules/element-task"
 import file from "./modules/file"
 import project from "./modules/project"
 import selectedElements from "./modules/selected-elements"
+import elementPricing from "./modules/element-pricing"
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
         company,
         element,
         elementTask,
+        elementPricing,
         file,
         project,
 

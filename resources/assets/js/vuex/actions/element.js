@@ -186,12 +186,38 @@ export const ElementsPricingCreate = ({ dispatch, state }, data) => {
     return promise
 }
 
-export const ElementsPricingGet = ({ dispatch, state }, id) => {
+export const ElementsPricingUpdate = ({ dispatch, state }, id, data) => {
     const promise = new Promise((resolve, reject) => {
-        Vue.http.get("api/element-pricing/" + id).then((response) => {
+        Vue.http['put']("api/element-pricing/" + id , data).then((response) => {
+            resolve(response.data)
+        }, (response) => {
+            reject(response.data)
+        })
+    })
+    return promise
+}
+
+export const ElementsPricingGet = ({ dispatch, state }, id, real = '0') => {
+    const promise = new Promise((resolve, reject) => {
+        Vue.http.get("api/element-pricing/" + id + "?real=" + real).then((response) => {
             resolve(response.data.pricing)
         }, (response) => {
             reject(response.data)
+        })
+    })
+    return promise
+}
+
+export const ElementsPricingIndex = ({ dispatch, state }) => {
+    const promise = new Promise((resolve, reject) => {
+        dispatch('SET_INDEX_ELEMENT_PRICINGS_BUSY', true);
+        Vue.http.get("api/element-pricing").then((response) => {
+            resolve(response.data.pricings)
+            dispatch('SET_INDEX_ELEMENT_PRICINGS', response.data.pricings);
+            dispatch('SET_INDEX_ELEMENT_PRICINGS_BUSY', false);
+        }, (response) => {
+            reject(response.data)
+            dispatch('SET_INDEX_ELEMENT_PRICINGS_BUSY', false);
         })
     })
     return promise

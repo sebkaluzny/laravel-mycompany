@@ -58,7 +58,7 @@
             <tr class="warning">
                 <td><b>Zadanie</b></td>
                 <td><b>Parametry</b></td>
-                <td><b>Ilość</b></td>
+                <td class="collapsing"><b>Ilość</b></td>
                 <td><b>Cena za jeden</b></td>
             </tr>
             <tr v-for="task in element.tasks">
@@ -75,6 +75,8 @@
                             zł
                         </div>
                     </div>
+
+                    <a href="#" class="ui button mini" v-if="checkIfThereIsMoreSameTasks(task)" style="margin-left: 10px;" v-on:click.prevent="setSamePriceToAllSameTask(task)">ustaw tą cenę przy tych samych zadaniach</a>
                 </td>
             </tr>
             <tr v-if="element.pricing">
@@ -179,6 +181,68 @@
                 } else {
                     Vue.set(element, 'more_info', 1);
                 }
+            },
+
+            checkIfThereIsMoreSameTasks: function (_task) {
+                var count = 0;
+
+                window._.each(this.elements, function (element, index) {
+                    if (element.tasks) {
+                        window._.each(element.tasks, function (task, index2) {
+                            if(task.id == _task.id)
+                            {
+                                var checkFields = 0;
+
+                                window._.each(task.fields, function (field, index3) {
+                                    if(JSON.parse(task.pivot.fields)[index3] == JSON.parse(_task.pivot.fields)[index3]
+                                            && parseInt(task.price) != parseInt(_task.price))
+                                    {
+                                        checkFields++;
+                                    }
+                                });
+
+                                if(checkFields == task.fields.length)
+                                {
+                                    count++;
+                                }
+                            }
+                        });
+                    }
+                });
+
+                console.log(count);
+
+                if(count >= 1)
+                    return true;
+                else
+                    return false;
+            },
+
+            setSamePriceToAllSameTask: function (_task) {
+                window._.each(this.elements, function (element, index) {
+                    if (element.tasks) {
+                        window._.each(element.tasks, function (task, index2) {
+                            if(task.id == _task.id)
+                            {
+                                var checkFields = 0;
+
+                                window._.each(task.fields, function (field, index3) {
+                                    if(JSON.parse(task.pivot.fields)[index3] == JSON.parse(_task.pivot.fields)[index3])
+                                    {
+                                        checkFields++;
+                                    }
+                                });
+
+                                if(checkFields == task.fields.length)
+                                {
+                                    task.price = _task.price;
+                                }
+                            }
+                        });
+                    }
+                });
+
+                this.doCalculate();
             }
 
 //            calculateTasks: function () {

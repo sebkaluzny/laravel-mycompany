@@ -20,6 +20,11 @@ class ElementPricingRepository extends EloquentRepository implements ElementPric
         return ElementPricing::class;
     }
 
+    public function index()
+    {
+        return $this->model->get();
+    }
+
     public function get($id)
     {
         return $this->model->findOrFail($id);
@@ -35,4 +40,21 @@ class ElementPricingRepository extends EloquentRepository implements ElementPric
 
         return $model;
     }
+
+    public function update($model, array $input = [])
+    {
+        $model->data = json_encode($input['elements']);
+
+        $model->save();
+
+        return $model;
+    }
+
+
+    public function getCurrentElementInformations($pricing)
+    {
+
+    }
+
+
 }

@@ -18,6 +18,7 @@ import ElementTaskEdit from './views/element-task/edit.vue';
 import PricingCreate from './views/pricing/create.vue';
 import PricingShow from './views/pricing/show.vue';
 import PricingEdit from './views/pricing/edit.vue';
+import PricingIndex from './views/pricing/index.vue';
 
 
 // Create a router instance.
@@ -79,6 +80,10 @@ router.map({
         component: ElementPricing
     },
 
+    '/pricing': {
+        component: PricingIndex
+    },
+
     '/pricing/create': {
         component: PricingCreate
     },
@@ -89,6 +94,7 @@ router.map({
     },
 
     '/pricing/:id': {
+        name: 'pricing-show',
         component: PricingShow
     },
 

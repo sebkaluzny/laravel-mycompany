@@ -23,6 +23,8 @@
                     <a class="item" href="#">Wydanie na zewnątrz</a>
                 </div>
             </div>
+
+            <a href="#" class="item" v-link="{ path: '/pricing' }">Wyceny</a>
         </div>
     </div>
 </template>
