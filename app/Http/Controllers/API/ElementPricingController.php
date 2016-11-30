@@ -263,9 +263,9 @@ class ElementPricingController extends Controller
 
                         foreach($task->fields as $k => $field)
                         {
-                            $fields[] = "{$field->name}: {$fieldsValue[$k]}{$field->unit}";
+                            if($fieldsValue[$k] != 0)
+                                $fields[] = "{$field->name}: {$fieldsValue[$k]}{$field->unit}";
                         }
-
                         $tasks[] = "{$task->name} x{$task->pivot->quantity} " . implode(',', $fields) . "; ";
                     }
 
