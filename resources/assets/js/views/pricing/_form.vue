@@ -153,7 +153,7 @@
                 window._.each(this.elements, function (element, index) {
                     if (element.tasks) {
                         Vue.set(element, 'pricing', {quantity: 0, price: 0});
-
+//
                         window._.each(element.tasks, function (task, index2) {
                             element.pricing.quantity += parseInt(task.pivot.quantity);
                             element.pricing.price += parseInt(task.price) * parseInt(task.pivot.quantity);

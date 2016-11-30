@@ -210,13 +210,19 @@ class ElementPricingController extends Controller
 
             if(isset($item->tasks))
             {
+                $elementPrice = 0;
+
                 foreach($item->tasks as $task)
                 {
                     if(isset($task->price))
                     {
-                        $price += (int) $task->price;
+                        $elementPrice += (int) $task->price * $task->pivot->quantity;
                     }
                 }
+
+                $elementPrice = $elementPrice * $item->done_quantity;
+
+                $price += $elementPrice;
             }
 
             foreach($columns as $column)

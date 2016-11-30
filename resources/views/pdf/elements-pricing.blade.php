@@ -31,7 +31,7 @@
                             <img src="{{ env('LOGO_FILE') }}" alt="" style="width: 100px;">
                         </td>
                         <td style="text-align: right;">
-                            <h2 style="margin-bottom: 0;">{{ env('COMPANY_NAME') }}</h2>
+                            <h2 style="margin-bottom: 0; font-family: 'Open Sanz'; ">{{ mb_convert_encoding(env('COMPANY_NAME'), 'UTF-8') }}</h2>
                             <h3 style="margin-top: 5px;">Wycena z dnia {{ $pricing->updated_at->toDateString() }}</h3>
                         </td>
                     </tr>
